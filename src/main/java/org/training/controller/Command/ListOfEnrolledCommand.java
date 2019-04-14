@@ -25,15 +25,19 @@ public class ListOfEnrolledCommand implements Command {
 
         List<ApplicationForAdmission> applications = applicationService.getAllConfirmedApplications();
 
-        List<Student> students = studentService.getAllEnrolledStudents(applications);
+        List<Student> enrolledStudents = studentService.getAllEnrolledStudents(applications);
+
+        request.setAttribute("enrolledStudents", enrolledStudents );
+
+
 
         System.out.println("students::");
-        for (Student student: students ) {
+        for (Student student: enrolledStudents ) {
             System.out.println(student.toString());
         }
 
 
-        return "/index.jsp";
+        return "/WEB-INF/user/enrolledlist.jsp";
     }
 
 }

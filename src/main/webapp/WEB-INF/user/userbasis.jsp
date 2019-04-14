@@ -2,11 +2,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>USER</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Index</title>
 
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/image/book22px.png">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick.css"/>
+    <%--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>--%>
+
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/animate.min.css">
+    <meta name="keywords" content="">
+    <meta name="description" content="Introductory campaign">
+    <meta name="viewport" content="width=device-width"/>
 </head>
 <body>
 
+<jsp:include page="navbar.jsp"/>
+<br><br><br><br><br>
 <h1>Hello USER!</h1>
 
 Студент регистрируется на сдачу предметов.
@@ -20,12 +33,6 @@
             </c:forEach>
         </select>
 
-    <%--<select class="custom-select" name="examId" required>--%>
-        <%--<option value="">Choose exam...</option>--%>
-        <%--<option value="1">Math</option>--%>
-        <%--<option value="2">Physics</option>--%>
-        <%--<option value="3">English</option>--%>
-    <%--</select>--%>
 
     <input class="button" type="submit" value="reg for exam">
 </form>
@@ -34,8 +41,6 @@
 <br>
 Студент выбирает специальность в университете.
 <form method="post" action="${pageContext.request.contextPath}/introductory-campaign/apply-for-admission">
-
-
 
         <select class="custom-select" name="idSpeciality" required>
             <option value="">Choose speciality...</option>--%>
@@ -49,6 +54,8 @@
 
 
 
+<%--<jsp:include page="enrolledlist.jsp"/>--%>
+
 <a href="${pageContext.request.contextPath}/introductory-campaign/logout">Logout</a>
 <a href="${pageContext.request.contextPath}/introductory-campaign/home">home</a>
 <BR><BR><BR>
@@ -61,6 +68,15 @@
 
 
 
+
+
+
+<%--<select class="custom-select" name="examId" required>--%>
+<%--<option value="">Choose exam...</option>--%>
+<%--<option value="1">Math</option>--%>
+<%--<option value="2">Physics</option>--%>
+<%--<option value="3">English</option>--%>
+<%--</select>--%>
 
 
 

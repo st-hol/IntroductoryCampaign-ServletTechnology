@@ -39,6 +39,8 @@ public class RegistrationCommand implements Command {
 
         studentService.registerStudentInDB(student);
 
-        return "/registration.jsp";
+        String path = request.getServletContext().getContextPath();
+
+        return "redirect@" + path + "/jsp/registration.jsp?success=true";
     }
 }

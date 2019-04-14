@@ -471,7 +471,8 @@ ul.topnav li.icon {
 
     text-align: left;
     padding: 40px 30px;
-    width: 40%;
+    /*width: 40%;*/
+    margin-left:10%;
 }
 
 
@@ -645,7 +646,7 @@ ul.topnav li.icon {
 
 }
 
-.one-time-slider {
+.one-time {
 
 }
 
@@ -846,7 +847,7 @@ input[type="submit"]:hover {
 .form-cont-items {
     width: 70%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center !important;
     text-align: center;
     flex-wrap: wrap;
 }
@@ -1350,4 +1351,8 @@ footer {
     }
 }
 
+
+.slick-slide {
+    height: auto !important;
+}
 

@@ -1,5 +1,7 @@
 package org.training.controller.listener;
 
+import org.training.model.entity.Student;
+
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.HashSet;
@@ -27,5 +29,9 @@ public class SessionListener implements HttpSessionListener {
 
         httpSessionEvent.getSession()
                 .setAttribute("loggedUsers", loggedUsers);
+
+        httpSessionEvent.getSession()
+                .setAttribute("role", Student.ROLE.UNKNOWN);
+
     }
 }

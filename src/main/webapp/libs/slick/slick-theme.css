@@ -1,4 +1,4 @@
-@charset 'UTF-8';
+@charset "UTF-8";
 /* Slider */
 .slick-loading .slick-list
 {
@@ -19,6 +19,7 @@
 .slick-prev,
 .slick-next
 {
+
     font-size: 0;
     line-height: 0;
 
@@ -40,6 +41,8 @@
     border: none;
     outline: none;
     background: transparent;
+
+
 }
 .slick-prev:hover,
 .slick-prev:focus,
@@ -71,7 +74,7 @@
     line-height: 1;
 
     opacity: .75;
-    color: gray;/**/
+    color: white;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -79,6 +82,7 @@
 
 .slick-prev
 {
+    display: none;
     left: -25px;
 }
 [dir='rtl'] .slick-prev
@@ -98,6 +102,9 @@
 .slick-next
 {
     right: -25px;
+
+
+    display: none;
 }
 [dir='rtl'] .slick-next
 {
@@ -106,7 +113,7 @@
 }
 .slick-next:before
 {
-    content: '→';
+    content: '>';
 }
 [dir='rtl'] .slick-next:before
 {

@@ -1,18 +1,11 @@
 $(document).ready(function(){
-  $('.slider').slick({
- 	autoplay: true,
- 	autoplaySpeed: 4000,
- 	dots: true
-  });
 
+    $('.person-slider').slick({
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots: false,
+    });
 
-  $('.one-time-slider').slick({
-  dots: true,
-  infinite: false,
-  speed: 300,
-  slidesToShow: 1,
-  adaptiveHeight: true
-});
 	
 });
 

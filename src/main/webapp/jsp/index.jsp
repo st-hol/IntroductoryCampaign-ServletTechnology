@@ -1,33 +1,65 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*, java.text.*" %>
-
-<%!
-String getFormattedDate(){
-    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
-    return sdf.format(new Date());
-}
-%>
+<%--<%@page contentType="text/html; charset=UTF-8" %>--%>
+<%--<jsp:directive.page contentType="text/html; charset=UTF-8"/>--%>
 
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>index</title>
+    <title>Index</title>
+
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/image/book22px.png">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick.css"/>
+    <%--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>--%>
+
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/animate.min.css">
+    <meta name="keywords" content="">
+    <meta name="description" content="Introductory campaign">
+    <meta name="viewport" content="width=device-width"/>
 </head>
-    <body>
-        <h2>
-            Hello! <br/>
-            <i>time: <%= getFormattedDate() %></i>
-        </h2>
+<body>
 
-        <br/>
-        <a href="${pageContext.request.contextPath}/login.jsp">Please log in</a>
-              <br>
-        <a href="${pageContext.request.contextPath}/registration.jsp">reg</a>
-                 <br>
+<%--<h1>${sessionScope.role}</h1>--%>
+<c:choose>
+    <c:when test="${sessionScope.role == 'ADMIN'}">
+        <jsp:include page="../WEB-INF/admin/navbar.jsp"/>
+    </c:when>
+    <c:when test="${sessionScope.role == 'USER'}">
+        <jsp:include page="../WEB-INF/user/navbar.jsp"/>
+    </c:when>
+    <c:otherwise>
+        <jsp:include page="../WEB-INF/guest/navbar.jsp"/>
+    </c:otherwise>
+</c:choose>
 
-        <a href="${pageContext.request.contextPath}/show-all-exams">show</a>
 
-    </body>
+<jsp:include page="../WEB-INF/common/landing.jsp"/>
+
+
+</body>
 </html>
+
+
+
+
+
+<%--<jsp:include page="WEB-INF/guest/navbar.jsp"/>--%>
+<%--&lt;%&ndash;<style>&ndash;%&gt;--%>
+<%--&lt;%&ndash;<%@include file='css/style.css' %>&ndash;%&gt;--%>
+<%--&lt;%&ndash;</style>&ndash;%&gt;--%>
+
+<%--<h2>--%>
+<%--Hello! <br/>--%>
+<%--<i>time: <%= getFormattedDate() %></i>--%>
+<%--</h2>--%>
+
+<%--<br/>--%>
+<%--<a href="${pageContext.request.contextPath}/login.jsp">Please log in</a>--%>
+<%--<br>--%>
+<%--<a href="${pageContext.request.contextPath}/registration.jsp">reg</a>--%>
+<%--<br>--%>
+
+<%--<a href="${pageContext.request.contextPath}/introductory-campaign/show-all-exams">show</a>--%>

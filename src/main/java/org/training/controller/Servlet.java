@@ -44,6 +44,9 @@ public class Servlet extends HttpServlet {
 
         commands.put("list-of-enrolled",
                 new ListOfEnrolledCommand());
+
+        commands.put("personal-cabinet",
+                new PersonalCabinetCommand());
     }
 
     public void doGet(HttpServletRequest request,
@@ -63,12 +66,15 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI();
+        System.out.println("1" + path);
         path = path.replaceAll(".*/introductory-campaign/" , "");
+        System.out.println("2" + path);
 
-        Command command = commands.getOrDefault(path , (req, resp)->"/index.jsp");
+        Command command = commands.getOrDefault(path , (req, resp)->"/welcome.jsp");
 
         String page = command.execute(request, response);
 
+        System.out.println("3"+page);
         if (page.contains("redirect")) {
             response.sendRedirect(page.replace("redirect@", ""));
            // System.out.println(page.replace("redirect:", ""));
