@@ -7,7 +7,6 @@ $(document).ready(function(){
 
 
   $('.one-time-slider').slick({
-
   dots: true,
   infinite: false,
   speed: 300,
