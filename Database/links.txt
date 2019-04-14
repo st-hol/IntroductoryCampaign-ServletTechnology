@@ -1,0 +1,2 @@
+n-m
+https://appliedjava.wordpress.com/2010/09/26/many-to-many/

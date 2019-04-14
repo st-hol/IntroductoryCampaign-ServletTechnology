@@ -1,0 +1,6 @@
+<h2 style="color:green">Admission notice</h2>
+<br>
+<span>Congratulations, <strong>%s</strong>, you have passed the competitive selection!</span>
+<br>
+<br>
+<i>Have a nice day</i>

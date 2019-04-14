@@ -1,0 +1,6 @@
+<h2 style="color:orange">Rejection notice</h2>
+<br>
+<span>Unfortunately, <strong>%s</strong>, you have not passed the competitive selection!</span>
+<br>
+<br>
+<i>Have a nice day</i>
