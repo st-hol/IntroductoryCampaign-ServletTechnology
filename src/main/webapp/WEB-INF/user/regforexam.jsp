@@ -7,10 +7,11 @@
 <fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:setBundle basename="messages"/>
 
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><fmt:message key="label.putmarks" /></title>
+    <title>Reg. for exam</title>
 
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/image/book22px.png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick.css"/>
@@ -29,39 +30,33 @@
 <jsp:include page="sidebar.jsp"/>
 
 
+
 <div class="form-cont">
-    <div class="form-cont-items">
-        <div class="form-item put-marks-item" id="popupform">
-            <h2 class="form-title wow bounce"><fmt:message key="label.put.mark.to.student" /></h2>
-                <div class="contee wow flipInY" data-wow-delay="0.5s">
+<div class="form-cont-items">
+    <div class="form-item put-marks-item" id="popupform">
+        <h2 class="form-title wow bounce"><fmt:message key="label.registrate.for.subject"/> </h2>
+        <div class="contee wow flipInY" data-wow-delay="0.5s">
 
-                <form class="put-marks-form" method="post"
-                      action="${pageContext.request.contextPath}/introductory-campaign/set-grade">
+            <form class="put-marks-form" method="post" action="${pageContext.request.contextPath}/introductory-campaign/registrate-for-exam">
+                <%--<input type="text" name="examId"><br/>--%>
 
-                    <select class="soflow-color" name="idStudent" required>
-                        <option value=""><fmt:message key="label.choose.student" /></option>
-                        <c:forEach var="student" items="${students}">
-                            <option value="${student.id}">${student.firstName} ${student.lastName}</option>
-                        </c:forEach>
-                    </select>
-
-                    <select class="soflow-color" name="idSubject" required>
-                        <option value=""><fmt:message key="label.choose.exam" /></option>
-                        <c:forEach var="exam" items="${exams}">
-                            <option value="${exam.id}">${exam.examName}</option>
-                        </c:forEach>
-                    </select>
+                <select class="soflow-color" name="examId" required>
+                    <option value=""><fmt:message key="label.choose.exam"/></option>
+                    <c:forEach var="exam" items="${exams}">
+                        <option value="${exam.id}">${exam.examName}</option>
+                    </c:forEach>
+                </select>
 
 
-                    <input type="text" name="examScore" placeholder="<fmt:message key="label.exam.score" />"><br/>
-
-
-                    <input class="button" type="submit" value="<fmt:message key="label.put.mark" />">
-                </form>
-            </div>
+                <input class="button" type="submit" value="reg for exam">
+            </form>
         </div>
     </div>
 </div>
+</div>
+
+
+
 
 
 <style>
@@ -69,24 +64,22 @@
         width: 40%;
     }
 
-    .put-marks-item {
+    .put-marks-item{
         margin-top: 100px;
         width: auto;
     }
 
-    .put-marks-form {
+    .put-marks-form{
         max-width: 100%;
     }
-
-    .put-marks-form input {
+    .put-marks-form input{
         width: auto;
         font-size: 14px;
         margin: 50px auto;
         outline: none;
         border-radius: 25px;
     }
-
-    .put-marks-item input[type="submit"] {
+    .put-marks-item input[type="submit"]{
         margin: 0 auto;
     }
 

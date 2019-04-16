@@ -1,10 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*, java.text.*" %>
-<%--<%@page contentType="text/html; charset=UTF-8" %>--%>
-<%--<jsp:directive.page contentType="text/html; charset=UTF-8"/>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
 
-<html>
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="messages"/>
+
+<html lang="${cookie['lang'].value}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Index</title>
@@ -22,7 +24,6 @@
 </head>
 <body>
 
-<%--<h1>${sessionScope.role}</h1>--%>
 <c:choose>
     <c:when test="${sessionScope.role == 'ADMIN'}">
         <jsp:include page="../WEB-INF/admin/navbar.jsp"/>

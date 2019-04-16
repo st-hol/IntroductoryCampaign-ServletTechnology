@@ -1,6 +1,12 @@
 package org.training.controller;
 
-import org.training.controller.Command.*;
+import org.training.controller.сommand.*;
+import org.training.controller.сommand.towards.ToHomeCommand;
+import org.training.controller.сommand.account.LoginCommand;
+import org.training.controller.сommand.account.LogoutCommand;
+import org.training.controller.сommand.account.PersonalCabinetCommand;
+import org.training.controller.сommand.actions.*;
+import org.training.controller.сommand.towards.*;
 import org.training.model.service.*;
 
 import javax.servlet.ServletConfig;
@@ -29,9 +35,9 @@ public class Servlet extends HttpServlet {
         commands.put("login",
                 new LoginCommand(new StudentService()));
         commands.put("logout",
-                new LogOutCommand());
+                new LogoutCommand());
         commands.put("home",
-                new HomeCommand());
+                new ToHomeCommand());
         commands.put("show-all-exams",
                 new ShowExamsCommand(new ExamService()));
         commands.put("registrate-for-exam",
@@ -47,7 +53,22 @@ public class Servlet extends HttpServlet {
 
         commands.put("personal-cabinet",
                 new PersonalCabinetCommand());
+
+        commands.put("apply-admission",
+                new ToApplyingCommand());
+
+        commands.put("put-marks",
+                new ToPutMarksCommand());
+
+        commands.put("reg-exam",
+                new ToRegExamCommand());
+
+        commands.put("reg-me",
+                new ToRegistrationCommand());
+        commands.put("log-me",
+                new ToLoginCommand());
     }
+
 
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
@@ -66,21 +87,39 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI();
-        System.out.println("1" + path);
+        //System.out.println("1" + path);
         path = path.replaceAll(".*/introductory-campaign/" , "");
-        System.out.println("2" + path);
+        //System.out.println("2" + path);
 
         Command command = commands.getOrDefault(path , (req, resp)->"/welcome.jsp");
 
         String page = command.execute(request, response);
+        //System.out.println("3"+page);
 
-        System.out.println("3"+page);
         if (page.contains("redirect")) {
             response.sendRedirect(page.replace("redirect@", ""));
-           // System.out.println(page.replace("redirect:", ""));
+           // System.out.println(page.replace("redirect@", ""));
         } else {
             request.getRequestDispatcher(page).forward(request,response);
         }
-        //request.getRequestDispatcher(page).forward(request,response);
+        //request.getRequestDispatcher(page).towards(request,response);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+//todo disable autocommit and make double transaction
+//for example for update two tables
+
+//todo pagination
+
+
+//todo many-to-many

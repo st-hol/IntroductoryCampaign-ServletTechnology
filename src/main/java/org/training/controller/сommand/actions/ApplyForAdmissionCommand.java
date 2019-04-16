@@ -1,8 +1,8 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.actions;
 
+import org.training.controller.сommand.Command;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.entity.Student;
-import org.training.model.mail.notificators.StudentNotificator;
 import org.training.model.service.ApplicationService;
 import org.training.model.service.SpecialityService;
 import org.training.model.service.StudentService;
@@ -51,7 +51,9 @@ public class ApplyForAdmissionCommand implements Command {
         else {
             System.out.println("You did not pass all the exams! Pass all three exams, then you can apply for admission.");
         }
-        return "/index.jsp";
+
+
+        return "/WEB-INF/user/applyforadmission.jsp";
     }
 
 }

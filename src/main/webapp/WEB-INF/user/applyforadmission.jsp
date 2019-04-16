@@ -1,5 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Stas
+  Date: 14/04/19
+  Time: 22:01
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
@@ -7,10 +15,11 @@
 <fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:setBundle basename="messages"/>
 
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><fmt:message key="label.putmarks" /></title>
+    <title><fmt:message key="label.apply" /></title>
 
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/image/book22px.png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick.css"/>
@@ -28,35 +37,25 @@
 <jsp:include page="navbar.jsp"/>
 <jsp:include page="sidebar.jsp"/>
 
-
 <div class="form-cont">
     <div class="form-cont-items">
         <div class="form-item put-marks-item" id="popupform">
-            <h2 class="form-title wow bounce"><fmt:message key="label.put.mark.to.student" /></h2>
-                <div class="contee wow flipInY" data-wow-delay="0.5s">
+            <h2 class="form-title wow bounce"><fmt:message key="label.make.admission" /></h2>
+            <div class="contee wow flipInY" data-wow-delay="0.5s">
+
 
                 <form class="put-marks-form" method="post"
-                      action="${pageContext.request.contextPath}/introductory-campaign/set-grade">
+                      action="${pageContext.request.contextPath}/introductory-campaign/apply-for-admission">
 
-                    <select class="soflow-color" name="idStudent" required>
-                        <option value=""><fmt:message key="label.choose.student" /></option>
-                        <c:forEach var="student" items="${students}">
-                            <option value="${student.id}">${student.firstName} ${student.lastName}</option>
+                    <select class="soflow-color" name="idSpeciality" required>
+                        <option value=""><fmt:message key="label.choose.speciality" /></option>
+                        --%>
+                        <c:forEach var="speciality" items="${specialities}">
+                            <option value="${speciality.id}">${speciality.nameSpeciality}</option>
                         </c:forEach>
+
                     </select>
-
-                    <select class="soflow-color" name="idSubject" required>
-                        <option value=""><fmt:message key="label.choose.exam" /></option>
-                        <c:forEach var="exam" items="${exams}">
-                            <option value="${exam.id}">${exam.examName}</option>
-                        </c:forEach>
-                    </select>
-
-
-                    <input type="text" name="examScore" placeholder="<fmt:message key="label.exam.score" />"><br/>
-
-
-                    <input class="button" type="submit" value="<fmt:message key="label.put.mark" />">
+                    <input class="button" type="submit" value="<fmt:message key="label.apply" />">
                 </form>
             </div>
         </div>
@@ -124,6 +123,5 @@
         padding-left: 15px;
     }
 </style>
-
 </body>
 </html>

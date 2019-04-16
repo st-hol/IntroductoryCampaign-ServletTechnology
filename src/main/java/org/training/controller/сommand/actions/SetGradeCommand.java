@@ -1,10 +1,8 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.actions;
 
+import org.training.controller.сommand.Command;
 import org.training.model.entity.ExamRegistration;
-import org.training.model.entity.Student;
 import org.training.model.service.ExamRegistrationService;
-import org.training.model.service.StudentService;
-import org.training.model.validator.NumberValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +36,14 @@ public class SetGradeCommand implements Command {
         examRegistration.setExamScore(Double.parseDouble(examScore));
 
 
-        //System.out.println(examRegistration.toString());
+        System.out.println(examRegistration.toString());
 
         examRegistrationService.setGrade(examRegistration);
 
-        return "/index.jsp";
 
+//
+//        сommand personalCabinet = new PersonalCabinetCommand();
+//        return personalCabinet.execute(request, response);
+        return "/WEB-INF/admin/adminbasis.jsp";
     }
 }

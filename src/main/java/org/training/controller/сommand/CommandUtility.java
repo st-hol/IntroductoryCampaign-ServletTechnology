@@ -1,4 +1,4 @@
-package org.training.controller.Command;
+package org.training.controller.сommand;
 
 import org.training.model.entity.Student;
 
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 
-class CommandUtility {
+public class CommandUtility {
 
-    static void setUserRole(HttpServletRequest request, Student.ROLE role, String email) {
+    public static void setUserRole(HttpServletRequest request, Student.ROLE role, String email) {
 
         HttpSession session = request.getSession();
         ServletContext context = request.getServletContext();
@@ -18,7 +18,7 @@ class CommandUtility {
 
     }
 
-    static boolean checkUserIsLogged(HttpServletRequest request, String email, String password){
+    public static boolean checkUserIsLogged(HttpServletRequest request, String email, String password){
 
         @SuppressWarnings("unchecked")
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession()

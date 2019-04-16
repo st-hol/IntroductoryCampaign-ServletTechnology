@@ -1,5 +1,6 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.actions;
 
+import org.training.controller.сommand.Command;
 import org.training.model.entity.ExamRegistration;
 import org.training.model.entity.Student;
 import org.training.model.service.ExamRegistrationService;
@@ -38,7 +39,8 @@ public class RegisterForTheExamCommand implements Command {
         examRegistration.setIdSubject(examId);
         examRegistrationService.registerForExam(examRegistration);
 
-        return "/index.jsp";
+//        return "/index.jsp";
+        return "/WEB-INF/user/userbasis.jsp";
     }
 
 

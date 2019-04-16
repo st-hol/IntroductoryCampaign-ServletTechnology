@@ -1,5 +1,6 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.account;
 
+import org.training.controller.сommand.Command;
 import org.training.model.entity.Exam;
 import org.training.model.entity.Speciality;
 import org.training.model.entity.Student;
@@ -14,6 +15,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+
+
+/**
+ * Move user to menu.
+ * If access 'admin' move to admin menu.
+ * If access 'user' move to user menu.
+ */
 public class PersonalCabinetCommand implements Command {
 
     @Override
@@ -42,9 +50,7 @@ public class PersonalCabinetCommand implements Command {
         } else {
             String path = request.getServletContext().getContextPath();
 
-            System.out.println("redirect@" + path + "/jsp/login.jsp?userExist=false");
-
-
+//            System.out.println("redirect@" + path + "/jsp/login.jsp?userExist=false");
             //FIXME
             return "redirect@" + path + "/jsp/login.jsp?userExist=false";
         }

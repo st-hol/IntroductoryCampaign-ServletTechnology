@@ -1,11 +1,8 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.actions;
 
+import org.training.controller.сommand.Command;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.entity.Student;
-import org.training.model.mail.MailBuilder;
-import org.training.model.mail.MailProperty;
-import org.training.model.mail.MailTemplatePath;
-import org.training.model.mail.MailThread;
 import org.training.model.service.ApplicationService;
 import org.training.model.service.StudentService;
 
@@ -31,15 +28,19 @@ public class ListOfEnrolledCommand implements Command {
 
 
 
-        System.out.println("students::");
-        for (Student student: enrolledStudents ) {
-            System.out.println(student.toString());
-        }
+//        System.out.println("students::");
+//        for (Student student: enrolledStudents ) {
+//            System.out.println(student.toString());
+//        }
 
 
-        return "/WEB-INF/user/enrolledlist.jsp";
+//        return "/WEB-INF/user/enrolledlist.jsp";
+
+        //todo make it pretty
+        String role = request.getSession().getAttribute("role").toString().toLowerCase();
+        return "/WEB-INF/"+ role +"/enrolledlist.jsp";
+
     }
-
 }
 
 

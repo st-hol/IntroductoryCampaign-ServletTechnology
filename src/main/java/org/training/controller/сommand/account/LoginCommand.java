@@ -1,25 +1,19 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.account;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.training.controller.сommand.Command;
+import org.training.controller.сommand.CommandUtility;
 import org.training.model.dao.StudentDao;
-import org.training.model.entity.Exam;
-import org.training.model.entity.Speciality;
 import org.training.model.entity.Student;
-import org.training.model.service.ExamService;
-import org.training.model.service.SpecialityService;
 import org.training.model.service.StudentService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-import static java.util.Objects.nonNull;
-
-public class LoginCommand implements Command{
+public class LoginCommand implements Command {
 
     private StudentService studentService;
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -29,47 +23,24 @@ public class LoginCommand implements Command{
     }
 
 
-    //mb unlog user
-    //todo validate
-    //400
-
-    //todo adduserlogged
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         final String email = request.getParameter("email");
         final String password = request.getParameter("password");
 
+        String path = request.getServletContext().getContextPath();
 //        if (!(UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
 //            //throw new RuntimeException("invalid input parameters");
-//            return "redirect@login.jsp?dataInvalid=true";
+//            return "redirect@" + path + "/jsp/login.jsp?dataInvalid=true";
 //        }
 
         StudentDao dao = studentService.getDaoFactory();
 
-        final HttpSession session = request.getSession();
-
-        //todo mb get role and forward to
-        //Logged user.
-        if (nonNull(session) &&
-                nonNull(session.getAttribute("email")) &&
-                nonNull(session.getAttribute("password"))) {
-
-            final Student.ROLE role = (Student.ROLE) session.getAttribute("role");
-
-            logger.info("Student from existing session [" + email + "] role [" + role + "] has entered successfully.");
-
-
-            //return moveToMenu(request, role);
-
-        } else if (dao.userIsExist(email, password)) {
-
-
-//            if(CommandUtility.checkUserIsLogged(request, email, password)){
-//                //changed
-//                return "jsp/error/error.jsp";
-//                //return "/WEB-INF/general/error.jsp";
-//            }
+        if (dao.userIsExist(email, password)) {
+            if (CommandUtility.checkUserIsLogged(request, email, password)) {
+                return "redirect@" + path + "/jsp/error/multilogin.jsp";
+            }
 
             final Student.ROLE role = dao.getRoleByEmailPassword(email, password);
 
@@ -78,21 +49,52 @@ public class LoginCommand implements Command{
             request.getSession().setAttribute("role", role);
 
             logger.info("Student [" + email + "] role [" + role + "] signed in successfully.");
-
             //return moveToMenu(request, role);
 
         } else {
             logger.info("Invalid attempt of login user: [" + email + "]");
-
-            //
             request.getSession().setAttribute("role", Student.ROLE.UNKNOWN);
             //return moveToMenu(request, Student.ROLE.UNKNOWN);
         }
 
         Command personalCabinet = new PersonalCabinetCommand();
         return personalCabinet.execute(request, response);
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    //mb unlog user
+    //todo validate
+    //400
+
+    //todo adduserlogged
+
+
+
+            //todo mb get role and towards to
+//    final HttpSession session = request.getSession();
+//        //Logged user.
+//        if (nonNull(session) &&
+//                nonNull(session.getAttribute("email")) &&
+//                nonNull(session.getAttribute("password"))) {
+//
+//            final Student.ROLE role = (Student.ROLE) session.getAttribute("role");
+//
+//            logger.info("Student from existing session [" + email + "] role [" + role + "] has entered successfully.");
+//
+//
+//            //return moveToMenu(request, role);
+//
+//        } else
 
     /**
      * Move user to menu.
@@ -123,9 +125,6 @@ public class LoginCommand implements Command{
 }
 
 
-
-
-
 //        if (name.equals("admin")){
 //            CommandUtility.setUserRole(request, Student.ROLE.ADMIN, name);
 //            return "/WEB-INF/admin/adminbasis.jsp";
@@ -136,3 +135,9 @@ public class LoginCommand implements Command{
 //            CommandUtility.setUserRole(request, Student.ROLE.UNKNOWN, name);
 //            return "/login.jsp";
 //        }
+
+
+
+
+
+

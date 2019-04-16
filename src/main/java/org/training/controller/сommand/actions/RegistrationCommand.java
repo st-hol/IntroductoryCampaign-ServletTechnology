@@ -1,9 +1,9 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.actions;
 
 
+import org.training.controller.сommand.Command;
 import org.training.model.entity.Student;
 import org.training.model.service.StudentService;
-import org.training.model.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,8 +26,9 @@ public class RegistrationCommand implements Command {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
 
+        String path = request.getServletContext().getContextPath();
 //        if (!(UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
-//            return "redirect@registration.jsp?dataInvalid=true";
+//            return "redirect@" + path + "/jsp/registration.jsp?dataInvalid=true";
 //        }
 
         Student student = new Student();
@@ -38,8 +39,6 @@ public class RegistrationCommand implements Command {
         student.setLastName(lastName);
 
         studentService.registerStudentInDB(student);
-
-        String path = request.getServletContext().getContextPath();
 
         return "redirect@" + path + "/jsp/registration.jsp?success=true";
     }

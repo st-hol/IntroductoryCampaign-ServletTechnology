@@ -1,7 +1,6 @@
-package org.training.controller.Command;
+package org.training.controller.сommand.actions;
 
-import org.training.model.dao.ExamDao;
-import org.training.model.dao.StudentDao;
+import org.training.controller.сommand.Command;
 import org.training.model.entity.Exam;
 import org.training.model.service.ExamService;
 

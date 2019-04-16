@@ -8,10 +8,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
+
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="messages"/>
+
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Index</title>
+    <title><fmt:message key="label.enrolled.list" /></title>
 
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/image/book22px.png">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick.css"/>
@@ -27,44 +34,54 @@
 <body>
 
 <jsp:include page="navbar.jsp"/>
-<br><br><br><br><br>
-<h1>Hello USER!</h1>
-<BR><BR><BR>
-
-Формируются рейтинговые списки поступивших
-<a href="${pageContext.request.contextPath}/introductory-campaign/list-of-enrolled">/list-of-enrolled</a>
-
-<c:forEach var="student" items="${enrolledStudents}">
-    <option value="${student.id}"></option>
-</c:forEach>
 
 
+<jsp:include page="sidebar.jsp"/>
 
-<table>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>surname</th>
-        <th>email</th>
-        <th>rating</th>
-    </tr>
-
-    <c:forEach var="student" items="${enrolledStudents}">
+<div class="table-container">
+    <table>
         <tr>
-            <td>${student.id}</td>
-            <td>${student.firstName}</td>
-            <td>${student.lastName}</td>
-            <td>${student.email}</td>
-            <td>${student.rating}</td>
+            <th><fmt:message key="label.id" /></th>
+            <th><fmt:message key="label.placeholder.firstname" /></th>
+            <th><fmt:message key="label.placeholder.lastname" /></th>
+            <th><fmt:message key="label.placeholder.email" /></th>
+            <th><fmt:message key="label.rating" /></th>
         </tr>
-    </c:forEach>
-</table>
+
+        <c:forEach var="student" items="${enrolledStudents}">
+            <tr>
+                <td>${student.id}</td>
+                <td>${student.firstName}</td>
+                <td>${student.lastName}</td>
+                <td>${student.email}</td>
+                <td>${student.rating}</td>
+            </tr>
+        </c:forEach>
+    </table>
+
+</div>
+
+
+
+
+
+
 
 
 
 
 <style>
+
+    .table-container{
+        float: right;
+        position: relative;
+        top: 20%;
+        right: 10%;
+    }
+
+
     table {
+        width: 60%;
         font-family: 'Helvetica Neue Cyr Light', sans-serif;
         font-size: 14px;
         border-radius: 10px;
@@ -108,10 +125,6 @@
 
 </style>
 
-<a href="${pageContext.request.contextPath}/introductory-campaign/logout">Logout</a>
-<a href="${pageContext.request.contextPath}/introductory-campaign/home">home</a>
-<BR><BR><BR>
-Формируются рейтинговые списки поступивших
-<a href="${pageContext.request.contextPath}/introductory-campaign/list-of-enrolled">/list-of-enrolled</a>
+
 </body>
 </html>

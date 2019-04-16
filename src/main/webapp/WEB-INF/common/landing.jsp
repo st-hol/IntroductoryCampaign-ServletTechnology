@@ -1,13 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Stas
-  Date: 14/04/19
-  Time: 20:12
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
 
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="messages"/>
 
 <section class="page1">
     <a name="top"></a>
@@ -24,8 +21,8 @@
 
 
         <div class="logo-div">
-            <p class="exc wow zoomInLeft">Introductory</p>
-            <p class="wow zoomInRight">Campaign</p>
+            <p class="exc wow zoomInLeft"><fmt:message key="label.introductory" /></p>
+            <p class="wow zoomInRight"><fmt:message key="label.campaign" /></p>
         </div>
 
     </div>
@@ -33,11 +30,12 @@
 
 
     <h1 class="some-text wow bounceInDown" data-wow-delay="1s">
-        go through the exams and enter the desired university! &nbsp;
+        <fmt:message key="label.go.through.exams" /> &nbsp;
     </h1>
     <br>
-    <a href="${pageContext.request.contextPath}/jsp/registration.jsp">
-        <button class="sign-up wow bounceInUp" data-wow-delay="1.5s">Sign up!</button>
+    <a href="${pageContext.request.contextPath}/introductory-campaign/reg-me">
+    <%--<a href="${pageContext.request.contextPath}/jsp/registration.jsp">--%>
+        <button class="sign-up wow bounceInUp" data-wow-delay="1.5s"><fmt:message key="label.sign.up" /></button>
     </a>
 
 
@@ -45,7 +43,7 @@
 
 <section class="page2">
     <a name="about"></a>
-    <h2 class="about-title wow slideInDown">list of specialties</h2>
+    <h2 class="about-title wow slideInDown"><fmt:message key="label.list.of.specialties" /></h2>
     <img src="${pageContext.request.contextPath}/image/line-gray.jpg" class="line-gray">
 
 
@@ -71,7 +69,7 @@
 <section class="page3">
     <a name="best"></a>
     <hr>
-    <h2 class="why-title wow slideInDown">Required to do</h2>
+    <h2 class="why-title wow slideInDown"><fmt:message key="label.to.do" /></h2>
     <img src="${pageContext.request.contextPath}/image/line-gray.jpg" class="line-why">
     <br>
     <div class="why_container">
@@ -80,14 +78,14 @@
                 <a href="#" class="container-img animated infinite pulse"><img class="why-images"
                                                                                src="${pageContext.request.contextPath}/image/why/44.png"
                                                                                alt=""/></a>
-                <p class="svg-title">registrate for exams</p>
+                <p class="svg-title"><fmt:message key="label.registrate.for.exams" /></p>
             </div>
 
             <div class="why_item wow zoomInLeft" data-wow-delay="2s">
                 <a href="#" class="container-img animated infinite pulse"><img class="why-images"
                                                                                src="${pageContext.request.contextPath}/image/why/33.png"
                                                                                alt=""/></a>
-                <p class="svg-title">choose speciality</p>
+                <p class="svg-title"><fmt:message key="label.choose.speciality" /></p>
             </div>
 
             <div class="why_item wow zoomInRight" data-wow-delay="3s">
@@ -95,7 +93,7 @@
                                                                                src="${pageContext.request.contextPath}/image/why/66.png"
                                                                                alt=""/></a>
 
-                <p class="svg-title">wait for result</p>
+                <p class="svg-title"><fmt:message key="label.wait.for.result" /></p>
             </div>
         </div>
     </div>
@@ -106,7 +104,7 @@
 <section class="page3-4">
     <a name="team"></a>
     <!-- <hr> -->
-    <h2 class="person-title wow slideInDown">Service roles</h2>
+    <h2 class="person-title wow slideInDown"><fmt:message key="label.service.roles" /></h2>
     <img src="${pageContext.request.contextPath}/image/line-gray.jpg" class="line-why">
     <div class="person-cont">
 
@@ -114,15 +112,15 @@
 
             <div class="person-item" data-wow-delay="0.5s">
                 <img src="${pageContext.request.contextPath}/image/person/p3.png" class="person-item-img">
-                <p class="person-item-p"><strong>ADMIN</strong> - puts grades for items.</p>
+                <p class="person-item-p"><strong><fmt:message key="label.admin" /></strong> - <fmt:message key="label.admin.do"/>.</p>
             </div>
             <div class="person-item" data-wow-delay="1.5s">
                 <img src="${pageContext.request.contextPath}/image/person/p1.png" class="person-item-img">
-                <p class="person-item-p"><strong>GUEST</strong> - not authorized user.</p>
+                <p class="person-item-p"><strong><fmt:message key="label.guest" /></strong> - <fmt:message key="label.guest.do"/>.</p>
             </div>
             <div class="person-item" data-wow-delay="1.5s">
                 <img src="${pageContext.request.contextPath}/image/person/p2.png" class="person-item-img">
-                <p class="person-item-p"><strong>STUDENT</strong> - registers for exams.</p>
+                <p class="person-item-p"><strong><fmt:message key="label.student" /></strong> - <fmt:message key="label.student.do"/>.</p>
             </div>
 
         </div>
@@ -136,8 +134,8 @@
 <footer class="clearfix">
     <div class="footerBlock">
         <p class="footerSlogan">
-            &#169; Introductory Campaign
-            since 2019
+            &#169; <fmt:message key="label.introductory" /> <fmt:message key="label.campaign" />
+            <fmt:message key="label.since" />
         </p>
         <div class="share">
             <button class="shareBtn"><img class="shareIcon"
@@ -155,7 +153,7 @@
                                           src="${pageContext.request.contextPath}/image/icons/003-youtube.png"/>
             </button>
         </div>
-        <div class="copyright">subscribe us!</div>
+        <div class="copyright"><fmt:message key="label.subscribe" /></div>
     </div>
 </footer>
 
