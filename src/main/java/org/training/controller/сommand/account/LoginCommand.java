@@ -7,6 +7,7 @@ import org.training.controller.сommand.CommandUtility;
 import org.training.model.dao.StudentDao;
 import org.training.model.entity.Student;
 import org.training.model.service.StudentService;
+import org.training.model.validator.UserValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,8 @@ import java.io.IOException;
 
 public class LoginCommand implements Command {
 
-    private StudentService studentService;
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
+    private StudentService studentService;
 
     public LoginCommand(StudentService studentService) {
         this.studentService = studentService;
@@ -29,32 +30,32 @@ public class LoginCommand implements Command {
         final String email = request.getParameter("email");
         final String password = request.getParameter("password");
 
-        String path = request.getServletContext().getContextPath();
-//        if (!(UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
-//            //throw new RuntimeException("invalid input parameters");
-//            return "redirect@" + path + "/jsp/login.jsp?dataInvalid=true";
-//        }
+        if (!(UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
+            //throw new RuntimeException("invalid input parameters");
+            //return "redirect@" + path + "/jsp/login.jsp?dataInvalid=true";
+            logger.info("User [" + email + "]" + "entered wrong data.");
+            return "/jsp/login.jsp?dataInvalid=true";
+        }
 
         StudentDao dao = studentService.getDaoFactory();
 
         if (dao.userIsExist(email, password)) {
+
+            //never invokes due to access filter
             if (CommandUtility.checkUserIsLogged(request, email, password)) {
+                String path = request.getServletContext().getContextPath();
                 return "redirect@" + path + "/jsp/error/multilogin.jsp";
             }
 
             final Student.ROLE role = dao.getRoleByEmailPassword(email, password);
-
             request.getSession().setAttribute("password", password);
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("role", role);
-
             logger.info("Student [" + email + "] role [" + role + "] signed in successfully.");
-            //return moveToMenu(request, role);
 
         } else {
             logger.info("Invalid attempt of login user: [" + email + "]");
             request.getSession().setAttribute("role", Student.ROLE.UNKNOWN);
-            //return moveToMenu(request, Student.ROLE.UNKNOWN);
         }
 
         Command personalCabinet = new PersonalCabinetCommand();

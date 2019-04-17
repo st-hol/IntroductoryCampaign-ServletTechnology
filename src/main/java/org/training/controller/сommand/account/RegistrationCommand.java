@@ -1,15 +1,19 @@
-package org.training.controller.сommand.actions;
+package org.training.controller.сommand.account;
 
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
 import org.training.model.entity.Student;
 import org.training.model.service.StudentService;
+import org.training.model.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 public class RegistrationCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(RegistrationCommand.class);
 
     private StudentService studentService;
 
@@ -26,10 +30,10 @@ public class RegistrationCommand implements Command {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
 
-        String path = request.getServletContext().getContextPath();
-//        if (!(UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
-//            return "redirect@" + path + "/jsp/registration.jsp?dataInvalid=true";
-//        }
+        if ( ! (UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
+            logger.info("User [" + email + "]" + "entered wrong data.");
+            return "/jsp/registration.jsp?dataInvalid=true";
+        }
 
         Student student = new Student();
         student.setRole(Student.ROLE.valueOf(role));
@@ -39,7 +43,25 @@ public class RegistrationCommand implements Command {
         student.setLastName(lastName);
 
         studentService.registerStudentInDB(student);
+        logger.info("User [" + email + "]" + " role[" + role + "]" +" successfully registered.");
 
-        return "redirect@" + path + "/jsp/registration.jsp?success=true";
+        return "/jsp/registration.jsp?success=true";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            return "redirect@" + path + "/jsp/registration.jsp?dataInvalid=true";
+//return "redirect@" + path + "/jsp/registration.jsp?success=true";

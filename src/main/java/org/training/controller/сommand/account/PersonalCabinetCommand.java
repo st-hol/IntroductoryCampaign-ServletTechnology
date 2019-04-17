@@ -48,11 +48,15 @@ public class PersonalCabinetCommand implements Command {
         } else if (role.equals(Student.ROLE.USER)) {
             return "/WEB-INF/user/userbasis.jsp";
         } else {
-            String path = request.getServletContext().getContextPath();
-
-//            System.out.println("redirect@" + path + "/jsp/login.jsp?userExist=false");
-            //FIXME
-            return "redirect@" + path + "/jsp/login.jsp?userExist=false";
+            return "/jsp/login.jsp?userExist=false";
         }
     }
 }
+
+
+
+
+
+//String path = request.getServletContext().getContextPath();
+//System.out.println("redirect@" + path + "/jsp/login.jsp?userExist=false");
+//return "redirect@" + path + "/jsp/login.jsp?userExist=false";

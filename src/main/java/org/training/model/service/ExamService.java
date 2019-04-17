@@ -10,6 +10,9 @@ import org.training.model.entity.Student;
 import java.util.List;
 import java.util.Optional;
 
+
+
+
 public class ExamService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
@@ -19,22 +22,11 @@ public class ExamService {
     }
 
 
-
     public List<Exam> getAllExams() {
         try (ExamDao dao = daoFactory.createExamDao()) {
             return dao.findAll();
         }
     }
 
-
-    public ExamRegistration registrateForExam(){
-        ExamRegistration examRegistration = new ExamRegistration();
-
-        //test
-        examRegistration.setIdStudent(1);
-        examRegistration.setIdSubject(1);
-
-        return examRegistration;
-    }
 
 }

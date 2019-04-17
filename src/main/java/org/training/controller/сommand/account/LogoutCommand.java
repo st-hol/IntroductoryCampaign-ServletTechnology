@@ -1,5 +1,7 @@
 package org.training.controller.сommand.account;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
 import org.training.controller.сommand.CommandUtility;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LogoutCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(LogoutCommand.class);
 
 
     @Override
@@ -17,6 +20,7 @@ public class LogoutCommand implements Command {
 
         String email = (String)request.getSession().getAttribute("email");
         CommandUtility.unlogUser(request, email);
+        logger.info("User [" + email + "] " + "logged out." );
 
         String path = request.getServletContext().getContextPath();
         return "redirect@" + path;

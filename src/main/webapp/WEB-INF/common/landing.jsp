@@ -180,5 +180,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/libs/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/libs/slick/slick.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myscript.js"></script>
+<script src="${pageContext.request.contextPath}/js/menu.js"></script>
 <!-- SCRIPTS -->
 

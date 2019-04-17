@@ -15,54 +15,87 @@ import static java.util.stream.Collectors.toCollection;
 
 
 public class AccessFilter implements Filter {
-    private Map<Student.ROLE, Set<String>> ways;
+    private Map<Student.ROLE, Set<String>> allowedRoutes;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        ways = new HashMap<>();
-        ways.put(Student.ROLE.UNKNOWN,
-                Stream.of("/", "/reg-me", "/log-me", "/login", "/registration", "/home").collect(collectingAndThen(
-                        toCollection(HashSet::new), Collections::unmodifiableSet)));
+        allowedRoutes = new HashMap<>();
+        allowedRoutes.put(Student.ROLE.UNKNOWN,
+                Stream.of("/", "/reg-me", "/log-me", "/login", "/registration", "/home")
+                        .collect(collectingAndThen(
+                                toCollection(HashSet::new), Collections::unmodifiableSet)));
 
-        ways.put(Student.ROLE.USER,
+        allowedRoutes.put(Student.ROLE.USER,
                 Stream.of("/", "/logout", "/home", "/show-all-exams", "/registrate-for-exam",
                 "/apply-for-admission", "/list-of-enrolled", "/personal-cabinet", "/apply-admission", "/reg-exam")
-                .collect(collectingAndThen(
-                        toCollection(HashSet::new), Collections::unmodifiableSet)));
+                        .collect(collectingAndThen(
+                                toCollection(HashSet::new), Collections::unmodifiableSet)));
 
-        ways.put(Student.ROLE.ADMIN,
+        allowedRoutes.put(Student.ROLE.ADMIN,
                 Stream.of("/", "/logout", "/home", "/show-all-exams", "/list-of-enrolled", "/personal-cabinet",
                         "/set-grade", "/put-marks")
-                .collect(collectingAndThen(
-                        toCollection(HashSet::new), Collections::unmodifiableSet)));
+                        .collect(collectingAndThen(
+                                toCollection(HashSet::new), Collections::unmodifiableSet)));
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest,
+                         ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
+
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String path = request.getRequestURI().replace(request.getContextPath(), "").replace(request.getServletPath(), "");
+
+        String path = request.getRequestURI()
+                .replace(request.getContextPath(), "")
+                .replace(request.getServletPath(), "");
 
         if (request.getSession().getAttribute("role") == null) {
             request.getSession().setAttribute("role", Student.ROLE.UNKNOWN);
         }
-        Student.ROLE requestRole = ((Student.ROLE)request.getSession().getAttribute("role"));
+        Student.ROLE currentRole = ((Student.ROLE)request.getSession().getAttribute("role"));
 
-        if (!ways.get(requestRole).contains(path)) {
+
+//        if ( ! allowedRoutes.get(currentRole).contains(path)) {
+//            //response.sendRedirect("/jsp/error/403.jsp");
+//            request.getRequestDispatcher("/jsp/error/403.jsp").forward(request,response);
+//            //response.sendError(HttpServletResponse.SC_GONE);
+//        }
+//        filterChain.doFilter(servletRequest, servletResponse);
+
+
+        if ( allowedRoutes.get(currentRole).contains(path)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
             request.getRequestDispatcher("/jsp/error/403.jsp").forward(request,response);
         }
-        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 }
 
 
 
 
+
+
+
+
+//        if ( allowedRoutes.get(currentRole).contains(path)) {
+//            filterChain.doFilter(servletRequest, servletResponse);
+//        } else {
+//            request.getRequestDispatcher("/jsp/error/403.jsp").forward(request,response);
+//        }
+
+
+
+//        if ( ! allowedRoutes.get(currentRole).contains(path)) {
+//            //response.sendRedirect("/jsp/error/403.jsp");
+//            request.getRequestDispatcher("/jsp/error/403.jsp").forward(request,response);
+////            response.sendError(HttpServletResponse.SC_GONE);
+//        }
+//        filterChain.doFilter(servletRequest, servletResponse);
 
 
 
@@ -118,5 +151,5 @@ public class AccessFilter implements Filter {
 ////role filter
 ///*
 //
-//ways.put...
+//allowedRoutes.put...
 // */

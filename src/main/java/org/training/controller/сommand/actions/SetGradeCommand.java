@@ -1,5 +1,7 @@
 package org.training.controller.сommand.actions;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
 import org.training.model.entity.ExamRegistration;
 import org.training.model.service.ExamRegistrationService;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SetGradeCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(SetGradeCommand.class);
 
     private ExamRegistrationService examRegistrationService;
 
@@ -27,6 +30,7 @@ public class SetGradeCommand implements Command {
 
 
 //        if ( ! (NumberValidator.validateNumber(examScore))) {
+//           //forward
 //            return "redirect@login.jsp?dataInvalid=true";
 //        }
 
@@ -38,12 +42,18 @@ public class SetGradeCommand implements Command {
 
         System.out.println(examRegistration.toString());
 
+        logger.info("Student id#" + idStudent + " got exam score " + examScore
+                + " for exam id#" + idSubject);
         examRegistrationService.setGrade(examRegistration);
+
+        return "/WEB-INF/admin/adminbasis.jsp";
+    }
+}
+
+
+
 
 
 //
 //        сommand personalCabinet = new PersonalCabinetCommand();
 //        return personalCabinet.execute(request, response);
-        return "/WEB-INF/admin/adminbasis.jsp";
-    }
-}

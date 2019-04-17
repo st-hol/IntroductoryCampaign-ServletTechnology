@@ -9,6 +9,19 @@ public class NumberValidator {
         return value != null && Pattern.matches(Regexes.NUMBER_REGEXP.getREGEXP(), value);
     }
 
+    public static boolean validateExamScore(String value) {
 
+        try {
+            double dValue = Double.parseDouble(value);
+            if (dValue < 0) {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return value != null && Pattern.matches(Regexes.EXAM_SCORE_REGEXP.getREGEXP(), value);
+    }
 }
 

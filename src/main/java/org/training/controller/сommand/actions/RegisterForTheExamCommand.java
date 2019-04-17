@@ -1,5 +1,7 @@
 package org.training.controller.сommand.actions;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
 import org.training.model.entity.ExamRegistration;
 import org.training.model.entity.Student;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegisterForTheExamCommand implements Command {
+
+    private static final Logger logger = LogManager.getLogger(RegisterForTheExamCommand.class);
 
     private ExamRegistrationService examRegistrationService;
     private StudentService studentService;
@@ -39,7 +43,9 @@ public class RegisterForTheExamCommand implements Command {
         examRegistration.setIdSubject(examId);
         examRegistrationService.registerForExam(examRegistration);
 
-//        return "/index.jsp";
+        logger.info("Student " + currentSessionStudent.getFirstName() + " " + currentSessionStudent.getLastName()
+                + "registered for exam id" + examId);
+
         return "/WEB-INF/user/userbasis.jsp";
     }
 
