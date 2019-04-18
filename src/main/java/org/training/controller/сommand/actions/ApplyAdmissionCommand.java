@@ -3,7 +3,6 @@ package org.training.controller.сommand.actions;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
-import org.training.controller.сommand.account.RegistrationCommand;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.entity.Student;
 import org.training.model.service.ApplicationService;
@@ -15,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ApplyForAdmissionCommand implements Command {
+public class ApplyAdmissionCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger(ApplyForAdmissionCommand.class);
+    private static final Logger logger = LogManager.getLogger(ApplyAdmissionCommand.class);
 
 
     private SpecialityService specialityService;
@@ -25,7 +24,7 @@ public class ApplyForAdmissionCommand implements Command {
     private ApplicationService applicationService;
 
 
-    public ApplyForAdmissionCommand(SpecialityService specialityService, StudentService studentService, ApplicationService applicationService) {
+    public ApplyAdmissionCommand(SpecialityService specialityService, StudentService studentService, ApplicationService applicationService) {
         this.specialityService = specialityService;
         this.studentService = studentService;
         this.applicationService = applicationService;

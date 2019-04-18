@@ -17,18 +17,21 @@
 
     <li class="contact-us">
         <%--<a href="${pageContext.request.contextPath}/jsp/login.jsp">--%>
-            <a href="${pageContext.request.contextPath}/introductory-campaign/log-me">
+        <a href="${pageContext.request.contextPath}/introductory-campaign/log-me">
             <fmt:message key="label.sign.in"/>
-        </a></li>
+        </a>
+    </li>
+
     <li class="my-nav-soc-li">
         <a href="?cookieLocale=en"><img class="soc-icon" src="${pageContext.request.contextPath}/image/locale/eng.png"></a>
-        <a href="${pageContext.request.contextPath}?cookieLocale=ua"><img class="soc-icon" src="${pageContext.request.contextPath}/image/locale/ukr.png"></a>
+        <a href="?cookieLocale=ua"><img class="soc-icon" src="${pageContext.request.contextPath}/image/locale/ukr.png"></a>
     </li>
 
     <li class="icon"><a href="javascript:void(0);" style="font-size:15px; margin: 0px; padding: 0px; padding-top: 8px;"
                         onclick="myFunction()">
         <img style="width: 37px; color: white;" src="${pageContext.request.contextPath}/image/share/menu-white.png">
-        <!-- &#9776; --></a></li>
+        <!-- &#9776; --></a>
+    </li>
 </ul>
 
 

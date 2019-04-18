@@ -19,6 +19,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick-theme.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sidebar.css"/>
+
+
     <meta name="keywords" content="">
     <meta name="description" content="Introductory campaign">
     <meta name="viewport" content="width=device-width"/>
@@ -124,6 +127,9 @@
         padding-left: 15px;
     }
 </style>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/myscript.js"></script>
 
 </body>
 </html>

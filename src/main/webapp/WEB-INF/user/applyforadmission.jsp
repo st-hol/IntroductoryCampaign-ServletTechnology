@@ -28,6 +28,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick-theme.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sidebar.css"/>
+
     <meta name="keywords" content="">
     <meta name="description" content="Introductory campaign">
     <meta name="viewport" content="width=device-width"/>
@@ -49,7 +51,7 @@
 
                     <select class="soflow-color" name="idSpeciality" required>
                         <option value=""><fmt:message key="label.choose.speciality" /></option>
-                        --%>
+
                         <c:forEach var="speciality" items="${specialities}">
                             <option value="${speciality.id}">${speciality.nameSpeciality}</option>
                         </c:forEach>

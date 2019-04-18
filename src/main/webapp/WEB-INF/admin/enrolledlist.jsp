@@ -19,7 +19,10 @@
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick-theme.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sidebar.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/enrolled-list.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/animate.min.css">
+
     <meta name="keywords" content="">
     <meta name="description" content="Introductory campaign">
     <meta name="viewport" content="width=device-width"/>
@@ -47,7 +50,7 @@
             <td>${student.firstName}</td>
             <td>${student.lastName}</td>
             <td>${student.email}</td>
-            <td>${student.rating}</td>
+            <td><fmt:formatNumber value="${student.rating}" maxFractionDigits="3" /></td>
         </tr>
     </c:forEach>
 </table>
@@ -56,68 +59,7 @@
 
 
 
-
-
-
-
-
-
-
-<style>
-
-    .table-container{
-        float: right;
-        position: relative;
-        top: 20%;
-        right: 10%;
-    }
-
-
-    table {
-        width: 60%;
-        font-family: 'Helvetica Neue Cyr Light', sans-serif;
-        font-size: 14px;
-        border-radius: 10px;
-        border-spacing: 0;
-        text-align: center;
-    }
-    th {
-        background: #BCEBDD;
-        color: white;
-        text-shadow: 0 1px 1px #2D2020;
-        padding: 10px 20px;
-    }
-    th, td {
-        border-style: solid;
-        border-width: 0 1px 1px 0;
-        border-color: white;
-    }
-    th:first-child, td:first-child {
-        text-align: left;
-    }
-    th:first-child {
-        border-top-left-radius: 10px;
-    }
-    th:last-child {
-        border-top-right-radius: 10px;
-        border-right: none;
-    }
-    td {
-        padding: 10px 20px;
-        background: #F8E391;
-    }
-    tr:last-child td:first-child {
-        border-radius: 0 0 0 10px;
-    }
-    tr:last-child td:last-child {
-        border-radius: 0 0 10px 0;
-    }
-    tr td:last-child {
-        border-right: none;
-    }
-
-</style>
-
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/myscript.js"></script>
 </body>
 </html>

@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RegisterForTheExamCommand implements Command {
+public class RegisterExamCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger(RegisterForTheExamCommand.class);
+    private static final Logger logger = LogManager.getLogger(RegisterExamCommand.class);
 
     private ExamRegistrationService examRegistrationService;
     private StudentService studentService;
 
-    public RegisterForTheExamCommand(ExamRegistrationService examRegistrationService, StudentService studentService) {
+    public RegisterExamCommand(ExamRegistrationService examRegistrationService, StudentService studentService) {
         this.examRegistrationService = examRegistrationService;
         this.studentService = studentService;
     }

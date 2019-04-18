@@ -7,8 +7,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
-//
-//@WebFilter(filterName = "CookieLocaleFilter", urlPatterns = { "/*" })
+
+
 public class CookieLocaleFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -25,7 +25,6 @@ public class CookieLocaleFilter implements Filter {
     }
 
     public void destroy() {}
-
     public void init(FilterConfig arg0) throws ServletException {}
 
 }

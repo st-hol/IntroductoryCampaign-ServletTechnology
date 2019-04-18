@@ -26,7 +26,6 @@
 
     <li class="contact-us">
         <a href="${pageContext.request.contextPath}/introductory-campaign/personal-cabinet">
-            <%--<c:out value="[${sessionScope.role}]"/>--%>
             <fmt:message key="label.student" />
             <fmt:message key="label.cabinet" />
         </a>
@@ -34,8 +33,8 @@
 
 
     <li class="my-nav-soc-li">
-        <a href="${requestScope['javax.servlet.towards.request_uri']}?cookieLocale=en"><img class="soc-icon" src="${pageContext.request.contextPath}/image/locale/eng.png"></a>
-        <a href="${pageContext.request.contextPath}?cookieLocale=ua"><img class="soc-icon" src="${pageContext.request.contextPath}/image/locale/ukr.png"></a>
+        <a href="?cookieLocale=en"><img class="soc-icon" src="${pageContext.request.contextPath}/image/locale/eng.png"></a>
+        <a href="?cookieLocale=ua"><img class="soc-icon" src="${pageContext.request.contextPath}/image/locale/ukr.png"></a>
     </li>
 
     <li class="icon"><a href="javascript:void(0);" style="font-size:15px; margin: 0px; padding: 0px; padding-top: 8px;"

@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Stas
-  Date: 14/04/19
-  Time: 22:01
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -26,6 +19,9 @@
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick-theme.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/enrolled-list.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sidebar.css"/>
+
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/animate.min.css">
     <meta name="keywords" content="">
     <meta name="description" content="Introductory campaign">
@@ -39,25 +35,25 @@
 <jsp:include page="sidebar.jsp"/>
 
 <div class="table-container">
-    <table>
-        <tr>
-            <th><fmt:message key="label.id" /></th>
-            <th><fmt:message key="label.placeholder.firstname" /></th>
-            <th><fmt:message key="label.placeholder.lastname" /></th>
-            <th><fmt:message key="label.placeholder.email" /></th>
-            <th><fmt:message key="label.rating" /></th>
-        </tr>
+<table>
+    <tr>
+        <th><fmt:message key="label.id" /></th>
+        <th><fmt:message key="label.placeholder.firstname" /></th>
+        <th><fmt:message key="label.placeholder.lastname" /></th>
+        <th><fmt:message key="label.placeholder.email" /></th>
+        <th><fmt:message key="label.rating" /></th>
+    </tr>
 
-        <c:forEach var="student" items="${enrolledStudents}">
-            <tr>
-                <td>${student.id}</td>
-                <td>${student.firstName}</td>
-                <td>${student.lastName}</td>
-                <td>${student.email}</td>
-                <td>${student.rating}</td>
-            </tr>
-        </c:forEach>
-    </table>
+    <c:forEach var="student" items="${enrolledStudents}">
+        <tr>
+            <td>${student.id}</td>
+            <td>${student.firstName}</td>
+            <td>${student.lastName}</td>
+            <td>${student.email}</td>
+            <td><fmt:formatNumber value="${student.rating}" maxFractionDigits="3" /></td>
+        </tr>
+    </c:forEach>
+</table>
 
 </div>
 

@@ -2,12 +2,12 @@ package org.training.controller;
 
 import org.training.controller.сommand.*;
 import org.training.controller.сommand.account.RegistrationCommand;
-import org.training.controller.сommand.towards.ToHomeCommand;
+import org.training.controller.сommand.directions.HomeCommand;
 import org.training.controller.сommand.account.LoginCommand;
 import org.training.controller.сommand.account.LogoutCommand;
 import org.training.controller.сommand.account.PersonalCabinetCommand;
 import org.training.controller.сommand.actions.*;
-import org.training.controller.сommand.towards.*;
+import org.training.controller.сommand.directions.*;
 import org.training.model.service.*;
 
 import javax.servlet.ServletConfig;
@@ -37,30 +37,30 @@ public class Servlet extends HttpServlet {
                 new PersonalCabinetCommand());
 
 
-        commands.put("show-all-exams",
-                new ShowExamsCommand(new ExamService()));
+//        commands.put("show-all-exams",
+//                new ShowExamsCommand(new ExamService()));
         commands.put("registrate-for-exam",
-                new RegisterForTheExamCommand(new ExamRegistrationService(), new StudentService()));
+                new RegisterExamCommand(new ExamRegistrationService(), new StudentService()));
         commands.put("set-grade",
                 new SetGradeCommand(new ExamRegistrationService()));
 
         commands.put("apply-for-admission",
-                new ApplyForAdmissionCommand(new SpecialityService(), new StudentService(), new ApplicationService()));
+                new ApplyAdmissionCommand(new SpecialityService(), new StudentService(), new ApplicationService()));
         commands.put("list-of-enrolled",
-                new ListOfEnrolledCommand());
+                new ShowEnrolledCommand());
 
         commands.put("home",
-                new ToHomeCommand());
+                new HomeCommand());
         commands.put("apply-admission",
-                new ToApplyingCommand());
+                new ApplyingCommand());
         commands.put("put-marks",
-                new ToPutMarksCommand());
+                new SettingGradeCommand());
         commands.put("reg-exam",
-                new ToRegExamCommand());
+                new RegExamCommand());
         commands.put("reg-me",
-                new ToRegistrationCommand());
+                new RegMeCommand());
         commands.put("log-me",
-                new ToLoginCommand());
+                new LogMeCommand());
     }
 
 

@@ -8,6 +8,7 @@ import org.training.controller.сommand.CommandUtility;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LogoutCommand implements Command {
@@ -23,7 +24,7 @@ public class LogoutCommand implements Command {
         logger.info("User [" + email + "] " + "logged out." );
 
         String path = request.getServletContext().getContextPath();
-        return "redirect@" + path;
+        return "redirect@" + path ;
     }
 }
 

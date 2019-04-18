@@ -81,7 +81,7 @@ public class LoginCommand implements Command {
 
 
 
-            //todo mb get role and towards to
+            //todo mb get role and directions to
 //    final HttpSession session = request.getSession();
 //        //Logged user.
 //        if (nonNull(session) &&

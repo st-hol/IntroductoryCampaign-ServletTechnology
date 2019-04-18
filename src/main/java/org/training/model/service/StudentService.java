@@ -17,21 +17,16 @@ import java.util.*;
 
 public class StudentService {
 
-
     private DaoFactory daoFactory = DaoFactory.getInstance();
-
-
 
     public StudentDao getDaoFactory() {
         return daoFactory.createStudentDao();
     }
 
     public void registerStudentInDB(Student student) {
-
         try (StudentDao studentDao = daoFactory.createStudentDao()) {
             studentDao.create(student);
         }
-
     }
 
     public Student getCurrentSessionStudent(HttpServletRequest request){
@@ -86,6 +81,7 @@ public class StudentService {
     public void notifyStudentByEmail(ApplicationForAdmission applicationForAdmission) {
 
         ApplicationService applicationService = new ApplicationService();
+
         //get current
         applicationForAdmission = applicationService.
                 getApplicationByStudentId(applicationForAdmission.getStudent().getId());
@@ -105,18 +101,10 @@ public class StudentService {
             studentNotificator.sendEmail(emailValue, fullName, MailTemplatePath.REJECTION_NOTICE);
         }
     }
-
-
-    public void setResponseFail(int status, String msg, HttpServletResponse response) {
-        response.setStatus(status);
-        try {
-            response.getWriter().write(msg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-package org.training.controller.сommand.towards;
+package org.training.controller.сommand.directions;
 
 import org.training.controller.сommand.Command;
 import org.training.model.entity.Speciality;
@@ -13,7 +13,7 @@ import java.util.List;
 
 
 
-public class ToHomeCommand implements Command {
+public class HomeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

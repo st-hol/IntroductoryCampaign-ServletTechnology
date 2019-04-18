@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/slick/slick-theme.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sidebar.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/libs/animate.min.css">
     <meta name="keywords" content="">
     <meta name="description" content="Introductory campaign">
@@ -26,16 +27,9 @@
 <body>
 <jsp:include page="navbar.jsp"/>
 
-
 <jsp:include page="sidebar.jsp"/>
 
-
 <jsp:include page="default-content.jsp"/>
-
-
-<%--<jsp:include page="putmarks.jsp"/>--%>
-<%--<jsp:include page="enrolledlist.jsp"/>--%>
-<%--<jsp:include page="footer.jsp"/>--%>
 
 
 
@@ -51,10 +45,10 @@
         $(".player").mb_YTPlayer();
     });
 </script>
-<script src="${pageContext.request.contextPath}/js/menu.js"></script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/libs/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/libs/slick/slick.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myscript.js"></script>
 <!-- SCRIPTS -->
 </body>
