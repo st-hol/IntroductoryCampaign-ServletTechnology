@@ -70,7 +70,7 @@
 
 
           <br/>
-          <a href="${pageContext.request.contextPath}/introductory-campaign/home"><fmt:message key="label.to.main" /></a>
+          <a class="to-main"  href="${pageContext.request.contextPath}/introductory-campaign/home"><fmt:message key="label.to.main" /></a>
 
         </div>
 

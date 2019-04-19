@@ -31,25 +31,20 @@ public class LoginCommand implements Command {
         final String password = request.getParameter("password");
 
         if ( ! (UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
-            //throw new RuntimeException("invalid input parameters");
-            //return "redirect@" + path + "/jsp/login.jsp?dataInvalid=true";
             logger.info("User [" + email + "]" + "entered wrong data.");
             return "/jsp/login.jsp?dataInvalid=true";
         }
 
-        StudentDao dao = studentService.getDaoFactory();
-        //todo dao to service
 
+        if (studentService.isExistingUser(email, password)) {
 
-        if (dao.userIsExist(email, password)) {
-
-            //never invokes due to access filter
+            //in order to prevent being logged into one account at the same time
             if (CommandUtility.checkUserIsLogged(request, email, password)) {
                 String path = request.getServletContext().getContextPath();
                 return "redirect@" + path + "/jsp/error/multilogin.jsp";
             }
 
-            final Student.ROLE role = dao.getRoleByEmailPassword(email, password);
+            final Student.ROLE role = studentService.getRoleByEmailAndPass(email, password);
             request.getSession().setAttribute("password", password);
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("role", role);

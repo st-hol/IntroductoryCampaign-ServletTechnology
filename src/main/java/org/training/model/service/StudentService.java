@@ -62,15 +62,18 @@ public class StudentService {
 
     }
 
-//        //todo streamApi
-//        for (Student student: students) {
-//            if (student.getEmail().equals(email)){
-//                return student;
-//            }
-//        }
-//        //todo optional
-//        return null;
-//    }
+
+    public boolean isExistingUser(String email, String password){
+        try (StudentDao dao = daoFactory.createStudentDao()) {
+            return dao.userIsExist(email, password);
+        }
+    }
+
+    public Student.ROLE getRoleByEmailAndPass(String email, String password){
+        try (StudentDao dao = daoFactory.createStudentDao()) {
+            return dao.getRoleByEmailPassword(email, password);
+        }
+    }
 
 
     public Student getStudentById(long id){

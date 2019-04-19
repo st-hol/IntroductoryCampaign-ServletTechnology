@@ -38,6 +38,22 @@
     font-style: normal;
 }
 
+
+.to-main {
+    text-decoration: none;
+    padding: 10px;
+    color: orange;
+    transition: .4s all;
+}
+.to-main:hover {
+    transform: rotate3d(12,100,-53, 360deg);
+    background: gray;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+
 *, body {
     margin: 0;
     padding: 0;

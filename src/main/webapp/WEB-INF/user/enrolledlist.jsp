@@ -34,92 +34,77 @@
 
 <jsp:include page="sidebar.jsp"/>
 
+
+
+
 <div class="table-container">
-<table>
-    <tr>
-        <th><fmt:message key="label.id" /></th>
-        <th><fmt:message key="label.placeholder.firstname" /></th>
-        <th><fmt:message key="label.placeholder.lastname" /></th>
-        <th><fmt:message key="label.placeholder.email" /></th>
-        <th><fmt:message key="label.rating" /></th>
-    </tr>
-
-    <c:forEach var="student" items="${enrolledStudents}">
+    <table class="responstable" border="1" cellpadding="5" cellspacing="5">
         <tr>
-            <td>${student.id}</td>
-            <td>${student.firstName}</td>
-            <td>${student.lastName}</td>
-            <td>${student.email}</td>
-            <td><fmt:formatNumber value="${student.rating}" maxFractionDigits="3" /></td>
+            <th><fmt:message key="label.id"/></th>
+            <th><fmt:message key="label.placeholder.firstname"/></th>
+            <th><fmt:message key="label.placeholder.lastname"/></th>
+            <th><fmt:message key="label.placeholder.email"/></th>
+            <th><fmt:message key="label.rating"/></th>
         </tr>
-    </c:forEach>
-</table>
 
+        <c:forEach var="student" items="${enrolledStudents}">
+            <tr>
+                <td>${student.id}</td>
+                <td>${student.firstName}</td>
+                <td>${student.lastName}</td>
+                <td>${student.email}</td>
+                <td><fmt:formatNumber value="${student.rating}" maxFractionDigits="3"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+
+
+    <nav>
+        <ul class="pagination">
+
+            <c:if test="${currentPage != 1}">
+                <li class="page-item">
+                    <a class="in-table-link"
+                       href="${pageContext.request.contextPath}/introductory-campaign/list-of-enrolled?page=${currentPage - 1}">
+                        <fmt:message key="label.prev"/>
+                    </a>
+                </li>
+            </c:if>
+
+
+            <c:forEach begin="1" end="${noOfPages}" var="i">
+                <c:choose>
+                    <c:when test="${currentPage eq i}">
+                        <li class="page-item active">
+                            <a class="in-table-link"
+                               href="#">  ${i} </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item">
+                            <a class="in-table-link"
+                               href="${pageContext.request.contextPath}/introductory-campaign/list-of-enrolled?page=${i}">${i}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+
+            <c:if test="${currentPage lt noOfPages}">
+                <li class="page-item"><a class="in-table-link"
+                        href="${pageContext.request.contextPath}/introductory-campaign/list-of-enrolled?page=${currentPage + 1}">
+                    <fmt:message key="label.next"/>
+                </a>
+                </li>
+            </c:if>
+        </ul>
+    </nav>
 </div>
 
 
 
 
 
-
-
-
-
-
-<style>
-
-    .table-container{
-        float: right;
-        position: relative;
-        top: 20%;
-        right: 10%;
-    }
-
-
-    table {
-        width: 60%;
-        font-family: 'Helvetica Neue Cyr Light', sans-serif;
-        font-size: 14px;
-        border-radius: 10px;
-        border-spacing: 0;
-        text-align: center;
-    }
-    th {
-        background: #BCEBDD;
-        color: white;
-        text-shadow: 0 1px 1px #2D2020;
-        padding: 10px 20px;
-    }
-    th, td {
-        border-style: solid;
-        border-width: 0 1px 1px 0;
-        border-color: white;
-    }
-    th:first-child, td:first-child {
-        text-align: left;
-    }
-    th:first-child {
-        border-top-left-radius: 10px;
-    }
-    th:last-child {
-        border-top-right-radius: 10px;
-        border-right: none;
-    }
-    td {
-        padding: 10px 20px;
-        background: #F8E391;
-    }
-    tr:last-child td:first-child {
-        border-radius: 0 0 0 10px;
-    }
-    tr:last-child td:last-child {
-        border-radius: 0 0 10px 0;
-    }
-    tr td:last-child {
-        border-right: none;
-    }
-
-</style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myscript.js"></script>

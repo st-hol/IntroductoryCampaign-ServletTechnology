@@ -189,7 +189,7 @@ public class JDBCStudentFactory implements StudentDao {
 
         String query = "SELECT SQL_CALC_FOUND_ROWS * FROM application_for_admission as app " +
                 "left join students as st on app.id_student = st.id_student " +
-                "where app.is_enrolled = 1 " +
+                "where app.is_enrolled = 1 order by st.rating DESC " +
                 "limit  "
                 + offset + ", " + noOfRecords;
 
