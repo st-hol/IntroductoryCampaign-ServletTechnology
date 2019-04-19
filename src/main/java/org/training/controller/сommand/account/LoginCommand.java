@@ -38,6 +38,8 @@ public class LoginCommand implements Command {
         }
 
         StudentDao dao = studentService.getDaoFactory();
+        //todo dao to service
+
 
         if (dao.userIsExist(email, password)) {
 

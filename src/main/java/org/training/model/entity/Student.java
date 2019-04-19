@@ -131,7 +131,7 @@ public class Student {
             return ordinal() + 1;
         }
 
-        public static Student.ROLE getRoleNameById(int id){
+        public static Student.ROLE getRoleById(int id){
             int index = id - 1;
             return values()[index];
         }

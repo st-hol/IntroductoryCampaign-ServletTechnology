@@ -5,6 +5,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
 import org.training.model.entity.Student;
+import org.training.model.exception.AlreadyExistingDBRecordException;
 import org.training.model.service.StudentService;
 import org.training.model.validator.UserValidator;
 
@@ -42,9 +43,15 @@ public class RegistrationCommand implements Command {
         student.setFirstName(firstName);
         student.setLastName(lastName);
 
-        studentService.registerStudentInDB(student);
-        logger.info("User [" + email + "]" + " role[" + role + "]" +" successfully registered.");
+        try {
+            studentService.registerStudentInDB(student);
+        } catch (AlreadyExistingDBRecordException e) {
+            e.printStackTrace();
+            logger.info(e.getMessage());
+            return "/jsp/registration.jsp?success=false";
+        }
 
+        logger.info("User [" + email + "]" + " role[" + role + "]" +" successfully registered.");
         return "/jsp/registration.jsp?success=true";
     }
 }

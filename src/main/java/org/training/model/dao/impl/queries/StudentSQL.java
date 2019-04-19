@@ -13,7 +13,11 @@ public enum StudentSQL {
             "VALUES ((?),(?),(?),(?), (?), (?))"),
 
     DELETE(""),
-    UPDATE("");
+    UPDATE(""),
+
+    READ_BY_EMAIL("SELECT * FROM students where email=(?);"),
+
+    READ_BY_EMAIL_PASSWORD("SELECT * FROM students where email=(?) and password=(?);");
 
     String QUERY;
 

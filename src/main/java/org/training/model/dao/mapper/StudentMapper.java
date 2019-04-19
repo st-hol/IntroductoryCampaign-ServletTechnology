@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-import static org.training.model.entity.Student.ROLE.getRoleNameById;
+import static org.training.model.entity.Student.ROLE.getRoleById;
 
 public class StudentMapper implements ObjectMapper<Student>{
 
@@ -26,7 +26,7 @@ public class StudentMapper implements ObjectMapper<Student>{
 
         student.setEmail(rs.getString("email"));
         student.setPassword(rs.getString("password"));
-        student.setRole(getRoleNameById(
+        student.setRole(getRoleById(
                 rs.getInt("id_role")));
 
 

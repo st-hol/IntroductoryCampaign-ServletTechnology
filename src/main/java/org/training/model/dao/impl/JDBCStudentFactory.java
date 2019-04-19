@@ -12,6 +12,7 @@ import java.util.*;
 public class JDBCStudentFactory implements StudentDao {
 
     private Connection connection;
+    private int noOfRecords;
 
     public JDBCStudentFactory(Connection connection) {
         this.connection = connection;
@@ -51,7 +52,7 @@ public class JDBCStudentFactory implements StudentDao {
         Student result = new Student();
         result.setId(-1);
 
-        try (PreparedStatement ps = connection.prepareStatement(StudentSQL.READ_ONE.getQUERY())){
+        try (PreparedStatement ps = connection.prepareStatement(StudentSQL.READ_ONE.getQUERY())) {
 
             ps.setLong(1, id);
 
@@ -65,7 +66,6 @@ public class JDBCStudentFactory implements StudentDao {
         }
         return result;
     }
-
 
 
     @Override
@@ -104,31 +104,6 @@ public class JDBCStudentFactory implements StudentDao {
 
     }
 
-//    @Override
-//    public Optional<Student> findByEmail(String email) {
-//        Optional<Student> result = Optional.empty();
-//
-//        String query = "SELECT * FROM user WHERE email = ?";
-//
-//        try(PreparedStatement ps = connection.prepareCall(query)) {
-//
-//            ps.setString(1, email);
-//            ResultSet rs = ps.executeQuery();
-//
-//            StudentMapper studentMapper = new StudentMapper();
-//
-//            if (rs.next()) {
-//                result = Optional.of(studentMapper.extractFromResultSet(rs));
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
-
-
 
     @Override
     public void close() {
@@ -140,38 +115,135 @@ public class JDBCStudentFactory implements StudentDao {
     }
 
 
+    @Override
     public Student.ROLE getRoleByEmailPassword(final String email, final String password) {
         Student.ROLE result = Student.ROLE.UNKNOWN;
 
-        List<Student> students = findAll();
+        try (PreparedStatement ps = connection.prepareStatement(StudentSQL.READ_BY_EMAIL_PASSWORD.getQUERY())) {
 
-        for (Student student : students) {
-            if (student.getEmail().equals(email) && student.getPassword().equals(password)) {
-                result = student.getRole();
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            final ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                result = Student.ROLE.getRoleById(rs.getInt("id_role"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return result;
+//        List<Student> students = findAll();
+//
+//        for (Student student : students) {
+//            if (student.getEmail().equals(email) && student.getPassword().equals(password)) {
+//                result = student.getRole();
+//            }
+//        }
+//        return result;
     }
 
-
+    @Override
     public boolean userIsExist(final String email, final String password) {
-        boolean result = false;
 
-        List<Student> students = findAll();
+        try (PreparedStatement ps = connection.prepareStatement(StudentSQL.READ_BY_EMAIL_PASSWORD.getQUERY())) {
 
-        for (Student student : students) {
-            if (student.getEmail().equals(email) && student.getPassword().equals(password)) {
-                result = true;
-                break;
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            final ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return result;
+        return false;
     }
 
 
+    @Override
+    public boolean emailAlreadyTaken(final String email) {
+
+        try (PreparedStatement ps = connection.prepareStatement(StudentSQL.READ_BY_EMAIL.getQUERY())) {
+
+            ps.setString(1, email);
+
+            final ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
+    @Override
+    public PaginationResult findByPagination(int offset, int noOfRecords) {
+
+        PaginationResult paginationResult = new PaginationResult();
+
+        String query = "SELECT SQL_CALC_FOUND_ROWS * FROM application_for_admission as app " +
+                "left join students as st on app.id_student = st.id_student " +
+                "where app.is_enrolled = 1 " +
+                "limit  "
+                + offset + ", " + noOfRecords;
+
+        Map<Long, Student> users = new HashMap<>();
+        StudentMapper studentMapper = new StudentMapper();
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student student = studentMapper.extractFromResultSet(rs);
+                student = studentMapper.makeUnique(users, student);
+            }
+            rs.close();
+
+            rs = ps.executeQuery("SELECT FOUND_ROWS()");
+            if (rs.next()) {
+                paginationResult.setNoOfRecords(rs.getInt(1));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        paginationResult.setResultList(new ArrayList<>(users.values()));
+        return paginationResult;
+    }
+
+    /**
+     * just a container for returning result.
+     */
+    public class PaginationResult {
+        private int noOfRecords;
+        private List<Student> resultList;
+
+        public int getNoOfRecords() {
+            return noOfRecords;
+        }
+
+        public void setNoOfRecords(int noOfRecords) {
+            this.noOfRecords = noOfRecords;
+        }
+
+        public List<Student> getResultList() {
+            return resultList;
+        }
+
+        public void setResultList(List<Student> resultList) {
+            this.resultList = resultList;
+        }
+    }
 
 
-
+    public int getNoOfRecords() {
+        return noOfRecords;
+    }
 }
+
+

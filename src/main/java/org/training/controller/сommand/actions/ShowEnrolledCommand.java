@@ -2,6 +2,8 @@ package org.training.controller.сommand.actions;
 
 import org.training.controller.сommand.Command;
 import org.training.controller.сommand.CommandUtility;
+import org.training.model.dao.StudentDao;
+import org.training.model.dao.impl.JDBCStudentFactory;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.entity.Student;
 import org.training.model.service.ApplicationService;
@@ -22,14 +24,46 @@ public class ShowEnrolledCommand implements Command {
         //to prevent user coming back to cached pages after logout
         CommandUtility.disallowBackToCached(request, response);
 
-        CommandUtility.defineEnrolled(request);
+        int page = 1;
+        int recordsPerPage = 3;
+        if(request.getParameter("page") != null)
+            page = Integer.parseInt(request.getParameter("page"));
 
-        //todo make it pretty
+        final StudentService studentService = new StudentService();
+
+        JDBCStudentFactory.PaginationResult paginationResult =
+                studentService.getAllEnrolledStudentsByPagination(
+                        (page - 1) * recordsPerPage, recordsPerPage);
+
+
+        List<Student> enrolledStudents = paginationResult.getResultList();
+        int noOfRecords = paginationResult.getNoOfRecords();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+
+        request.setAttribute("enrolledStudents", enrolledStudents );
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+
+
+        //todo make it pretty (.map)
         final String role = request.getSession().getAttribute("role").toString().toLowerCase();
         return "/WEB-INF/" + role + "/enrolledlist.jsp";
     }
 }
 
+
+
+//
+//        StudentDao dao = studentService.getDaoFactory();
+//        List<Student> list = dao.findByPagination((page-1)*recordsPerPage,
+//                recordsPerPage);
+//        dao.close();
+
+
+
+//        System.out.println("records:" + noOfRecords);
+//        System.out.println("pages:" + noOfPages);
+//        System.out.println("cur:" + page);
 
 
 

@@ -39,6 +39,9 @@
           <c:if test="${param.success == true}">
             <p style="color: green"><fmt:message key="label.reg.success" /></p>
           </c:if>
+          <c:if test="${param.success == false}">
+            <p style="color: darkred"><fmt:message key="label.reg.failed" /></p>
+          </c:if>
 
           <form class="reg-form" method="post" action="${pageContext.request.contextPath}/introductory-campaign/registration">
 

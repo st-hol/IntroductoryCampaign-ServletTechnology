@@ -75,4 +75,23 @@ return null;
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public boolean recordAlreadyExist(long idStudent, long idSubject) {
+
+        try (PreparedStatement ps = connection.prepareStatement(ExamRegistrationSQL.IS_EXIST.getQUERY())){
+
+            ps.setLong(1, idStudent);
+            ps.setLong(2, idSubject);
+
+            final ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

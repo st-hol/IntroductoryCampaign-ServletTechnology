@@ -3,8 +3,10 @@ package org.training.model.service;
 
 import org.training.model.dao.DaoFactory;
 import org.training.model.dao.StudentDao;
+import org.training.model.dao.impl.JDBCStudentFactory;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.entity.Student;
+import org.training.model.exception.AlreadyExistingDBRecordException;
 import org.training.model.mail.MailTemplatePath;
 import org.training.model.mail.notificators.StudentNotificator;
 
@@ -26,8 +28,14 @@ public class StudentService {
         return daoFactory.createStudentDao();
     }
 
-    public void registerStudentInDB(Student student) {
+    public void registerStudentInDB(Student student) throws AlreadyExistingDBRecordException {
         try (StudentDao studentDao = daoFactory.createStudentDao()) {
+
+            if ( studentDao.emailAlreadyTaken(student.getEmail()) ){
+                throw new AlreadyExistingDBRecordException("Failed to registrate already existing user email "+
+                        student.getEmail());
+            }
+
             studentDao.create(student);
         }
     }
@@ -86,6 +94,12 @@ public class StudentService {
             students.add(application.getStudent());
         }
         return students.stream().sorted(Comparator.comparing(Student::getRating).reversed()).collect(Collectors.toList());
+    }
+
+    public JDBCStudentFactory.PaginationResult getAllEnrolledStudentsByPagination(int offset, int noOfRecords) {
+        try (StudentDao dao = daoFactory.createStudentDao()) {
+            return dao.findByPagination(offset, noOfRecords);
+        }
     }
 
     public void notifyStudentByEmail(ApplicationForAdmission applicationForAdmission) {

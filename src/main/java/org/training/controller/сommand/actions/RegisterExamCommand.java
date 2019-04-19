@@ -3,8 +3,10 @@ package org.training.controller.сommand.actions;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
+import org.training.controller.сommand.CommandUtility;
 import org.training.model.entity.ExamRegistration;
 import org.training.model.entity.Student;
+import org.training.model.exception.AlreadyExistingDBRecordException;
 import org.training.model.service.ExamRegistrationService;
 import org.training.model.service.StudentService;
 
@@ -37,7 +39,16 @@ public class RegisterExamCommand implements Command {
         ExamRegistration examRegistration = new ExamRegistration();
         examRegistration.setIdStudent(currentStudentId);
         examRegistration.setIdSubject(examId);
-        examRegistrationService.registerForExam(examRegistration);
+
+        try {
+            examRegistrationService.registerForExam(examRegistration);
+        } catch (AlreadyExistingDBRecordException e) {
+            e.printStackTrace();
+            logger.info(e.getMessage());
+
+            CommandUtility.defineExamsAttribute(request);
+            return "/WEB-INF/user/regforexam.jsp?alreadyExist=true";
+        }
 
         logger.info("Student " + currentSessionStudent.getFirstName() + " " + currentSessionStudent.getLastName()
                 + "registered for exam id" + examId);
@@ -45,6 +56,4 @@ public class RegisterExamCommand implements Command {
         return "/WEB-INF/user/regforexam.jsp";
     }
 
-//catch
-    //fixme  Duplicate entry '1-3' for key 'PRIMARY'
 }

@@ -40,6 +40,10 @@
         <h2 class="form-title wow bounce"><fmt:message key="label.registrate.for.subject"/> </h2>
         <div class="contee wow flipInY" data-wow-delay="0.5s">
 
+
+            <c:if test="${param.alreadyExist == true}">
+                <p style="color: orange"><fmt:message key="label.already.exist" /></p>
+            </c:if>
             <form class="put-marks-form" method="post" action="${pageContext.request.contextPath}/introductory-campaign/registrate-for-exam">
                 <%--<input type="text" name="examId"><br/>--%>
 

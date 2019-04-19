@@ -15,9 +15,10 @@ public enum ExamRegistrationSQL {
 
     UPDATE("UPDATE students_has_exams" +
             " SET exam_score = (?) " +
-            " WHERE(id_student = (?)) and (id_subject = (?));");
+            " WHERE(id_student = (?)) and (id_subject = (?));"),
 
 
+    IS_EXIST("SELECT * FROM students_has_exams where id_student = (?) and id_subject = (?);");
 
     String QUERY;
 
