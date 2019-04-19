@@ -33,31 +33,24 @@ public class ApplyAdmissionCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        Student currentSessionStudent = studentService.getCurrentSessionStudent(request);
+        final Student currentSessionStudent = studentService.getCurrentSessionStudent(request);
 
         final long currentStudentId = currentSessionStudent.getId();
+        final long specialityId = Long.parseLong(request.getParameter("idSpeciality"));
 
-        if (currentSessionStudent.getRating() != 0) {
+        ApplicationForAdmission applicationForAdmission = new ApplicationForAdmission();
+        //StudentNotificator studentNotificator = new StudentNotificator(applicationService);
 
-            //todo here can be trash/null user input
-            long specialityId = Long.parseLong(request.getParameter("idSpeciality"));
+        applicationForAdmission.setStudent(
+                studentService.getStudentById(currentStudentId));
+        applicationForAdmission.setSpeciality(
+                specialityService.getSpecialityById(specialityId));
 
-            ApplicationForAdmission applicationForAdmission = new ApplicationForAdmission();
-            //StudentNotificator studentNotificator = new StudentNotificator(applicationService);
+        logger.info("Student " + currentSessionStudent.getFirstName() + " " + currentSessionStudent.getLastName()
+                + "applied for admission.");
 
-            applicationForAdmission.setStudent(
-                    studentService.getStudentById(currentStudentId));
-            applicationForAdmission.setSpeciality(
-                    specialityService.getSpecialityById(specialityId));
-
-            logger.info("Student " + currentSessionStudent.getFirstName() +" "+ currentSessionStudent.getLastName()
-                    + "applied for admission.");
-            applicationService.applyForAdmission(applicationForAdmission);
-            studentService.notifyStudentByEmail(applicationForAdmission);
-        }
-        else {
-            System.out.println("You did not pass all the exams! Pass all three exams, then you can apply for admission.");
-        }
+        applicationService.applyForAdmission(applicationForAdmission);
+        studentService.notifyStudentByEmail(applicationForAdmission);
 
 
         return "/WEB-INF/user/applyforadmission.jsp";

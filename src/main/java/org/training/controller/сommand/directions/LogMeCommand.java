@@ -11,9 +11,6 @@ public class LogMeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-
-
         return "/jsp/login.jsp";
     }
 }

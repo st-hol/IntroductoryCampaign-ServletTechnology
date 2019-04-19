@@ -24,18 +24,18 @@ public class RegistrationCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String email = request.getParameter("email");
-        String role = request.getParameter("role");
-        String password = request.getParameter("password");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        final String email = request.getParameter("email");
+        final String role = request.getParameter("role");
+        final String password = request.getParameter("password");
+        final String firstName = request.getParameter("firstName");
+        final String lastName = request.getParameter("lastName");
 
         if ( ! (UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
             logger.info("User [" + email + "]" + "entered wrong data.");
             return "/jsp/registration.jsp?dataInvalid=true";
         }
 
-        Student student = new Student();
+        final Student student = new Student();
         student.setRole(Student.ROLE.valueOf(role));
         student.setPassword(password);
         student.setEmail(email);

@@ -19,7 +19,7 @@ public class LogoutCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String email = (String)request.getSession().getAttribute("email");
+        final String email = (String)request.getSession().getAttribute("email");
         CommandUtility.unlogUser(request, email);
         logger.info("User [" + email + "] " + "logged out." );
 

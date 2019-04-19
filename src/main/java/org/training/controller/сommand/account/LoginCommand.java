@@ -30,7 +30,7 @@ public class LoginCommand implements Command {
         final String email = request.getParameter("email");
         final String password = request.getParameter("password");
 
-        if (!(UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
+        if ( ! (UserValidator.validateEmail(email) && UserValidator.validatePassword(password))) {
             //throw new RuntimeException("invalid input parameters");
             //return "redirect@" + path + "/jsp/login.jsp?dataInvalid=true";
             logger.info("User [" + email + "]" + "entered wrong data.");

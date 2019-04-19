@@ -1,6 +1,7 @@
 package org.training.controller.сommand.directions;
 
 import org.training.controller.сommand.Command;
+import org.training.controller.сommand.CommandUtility;
 import org.training.model.entity.Speciality;
 import org.training.model.service.SpecialityService;
 
@@ -17,15 +18,8 @@ public class HomeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-
-        SpecialityService specialityService = new SpecialityService();
-        List<Speciality> specialities = specialityService.getAllSpecialities();
-        request.setAttribute("specialities", specialities );
-
-
+        CommandUtility.defineSpecialitiesAttribute(request);
         return "/jsp/index.jsp";
-
     }
 }
 

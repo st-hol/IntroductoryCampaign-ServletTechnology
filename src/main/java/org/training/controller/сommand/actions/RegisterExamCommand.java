@@ -26,18 +26,14 @@ public class RegisterExamCommand implements Command {
     }
 
 
-    //todo getparam ?id=
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        Student currentSessionStudent = studentService.getCurrentSessionStudent(request);
+        final Student currentSessionStudent = studentService.getCurrentSessionStudent(request);
 
         final long currentStudentId = currentSessionStudent.getId();
+        final long examId = Long.parseLong(request.getParameter("examId"));
 
-        //todo isNotDigit
-        long examId = Long.parseLong(request.getParameter("examId"));
-
-        //System.out.println("curID:" + currentSessionStudent + "        examID" + examId);
         ExamRegistration examRegistration = new ExamRegistration();
         examRegistration.setIdStudent(currentStudentId);
         examRegistration.setIdSubject(examId);
@@ -46,9 +42,9 @@ public class RegisterExamCommand implements Command {
         logger.info("Student " + currentSessionStudent.getFirstName() + " " + currentSessionStudent.getLastName()
                 + "registered for exam id" + examId);
 
-        return "/WEB-INF/user/userbasis.jsp";
+        return "/WEB-INF/user/regforexam.jsp";
     }
 
-
+//catch
     //fixme  Duplicate entry '1-3' for key 'PRIMARY'
 }

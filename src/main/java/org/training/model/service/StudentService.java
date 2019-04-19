@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class StudentService {
+
+    final private static int IS_ENROLLED = 1;
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
@@ -34,24 +37,32 @@ public class StudentService {
         final HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
 
-        Student student = getStudentByEmail(email);
+        System.out.println( (String) session.getAttribute("email"));
+        System.out.println(  session.getAttribute("email").toString());
 
-        return student;
+        return getStudentByEmail(email);
     }
 
-    public Student getStudentByEmail(String email){
+    private Student getStudentByEmail(String email) {
 
         List<Student> students = getAllUsers();
 
-        //todo streamApi
-        for (Student student: students) {
-            if (student.getEmail().equals(email)){
-                return student;
-            }
-        }
-        //todo optional
-        return null;
+        return students.stream()
+                .filter(student -> email.equals(student.getEmail()))
+                .findAny()
+                .orElse(null);
+
     }
+
+//        //todo streamApi
+//        for (Student student: students) {
+//            if (student.getEmail().equals(email)){
+//                return student;
+//            }
+//        }
+//        //todo optional
+//        return null;
+//    }
 
 
     public Student getStudentById(long id){
@@ -74,8 +85,7 @@ public class StudentService {
         for (ApplicationForAdmission application: applications){
             students.add(application.getStudent());
         }
-
-        return students;
+        return students.stream().sorted(Comparator.comparing(Student::getRating).reversed()).collect(Collectors.toList());
     }
 
     public void notifyStudentByEmail(ApplicationForAdmission applicationForAdmission) {
@@ -86,9 +96,7 @@ public class StudentService {
         applicationForAdmission = applicationService.
                 getApplicationByStudentId(applicationForAdmission.getStudent().getId());
 
-
         StudentNotificator studentNotificator = new StudentNotificator();
-        final int IS_ENROLLED = 1;
 
         final String emailValue = applicationForAdmission.getStudent().getEmail();
 

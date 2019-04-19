@@ -21,7 +21,7 @@ public class NumberValidator {
             return false;
         }
 
-        return value != null && Pattern.matches(Regexes.EXAM_SCORE_REGEXP.getREGEXP(), value);
+        return Pattern.matches(Regexes.EXAM_SCORE_REGEXP.getREGEXP(), value);
     }
 }
 

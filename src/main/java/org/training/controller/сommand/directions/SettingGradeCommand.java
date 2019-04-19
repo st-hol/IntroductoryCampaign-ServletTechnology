@@ -1,6 +1,7 @@
 package org.training.controller.сommand.directions;
 
 import org.training.controller.сommand.Command;
+import org.training.controller.сommand.CommandUtility;
 import org.training.model.entity.Exam;
 import org.training.model.entity.Student;
 import org.training.model.service.ExamService;
@@ -17,31 +18,11 @@ public class SettingGradeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-        final HttpSession session = request.getSession();
-        final Student.ROLE role = (Student.ROLE) session.getAttribute("role");
-
-        final String path = request.getServletContext().getContextPath();
-
-
         //to prevent user coming back to cached pages after logout
-        response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-        response.setHeader("Pragma","no-cache");
-        response.setDateHeader ("Expires", 0);
-        if (session.getAttribute("email") == null || session.getAttribute("password") == null
-                || session.getAttribute("role") == null) {
-            return  "redirect@" + path + "/jsp/error/invalidSession.jsp";
-        }
+        CommandUtility.disallowBackToCached(request, response);
 
-
-        StudentService studentService = new StudentService();
-        List<Student> students = studentService.getAllUsers();
-        request.setAttribute("students", students);
-
-        ExamService examService = new ExamService();
-        List<Exam> exams = examService.getAllExams();
-        request.setAttribute("exams", exams);
+        CommandUtility.defineStudentsAttribute(request);
+        CommandUtility.defineExamsAttribute(request);
 
         return "/WEB-INF/admin/putmarks.jsp";
     }

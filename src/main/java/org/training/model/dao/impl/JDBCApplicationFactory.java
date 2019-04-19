@@ -30,6 +30,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            //TODO LOG  //TODO LOG  //TODO LOG  //TODO LOG  //TODO LOG  //TODO LOG
         }
     }
 

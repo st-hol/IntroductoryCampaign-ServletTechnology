@@ -121,5 +121,10 @@
     }
 </style>
 
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/myscript.js"></script>
+
+
 </body>
 </html>
