@@ -1,8 +1,9 @@
 package org.training.model.mail;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -14,7 +15,8 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class MailThread extends Thread {
-    private static final Logger LOGGER = LogManager.getLogger(MailThread.class);
+
+    private static final Logger logger = LogManager.getLogger(MailProperty.class);
 
     private static final String TYPE = "text/html";
 
@@ -37,7 +39,7 @@ public class MailThread extends Thread {
         try {
             Transport.send(message);
         } catch (MessagingException e) {
-            LOGGER.log(Level.ERROR,"error of sending", e);
+            logger.error("error of sending", e);
         }
     }
 
@@ -51,9 +53,9 @@ public class MailThread extends Thread {
             message.setContent(mailText, TYPE);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToEmail));
         } catch (AddressException e) {
-            LOGGER.log(Level.ERROR,"incorrect email:" + sendToEmail, e);
+            logger.error("incorrect email:" + sendToEmail, e);
         } catch (MessagingException e) {
-            LOGGER.log(Level.ERROR,"error of formed message", e);
+            logger.error("error of formed message", e);
         }
     }
 }

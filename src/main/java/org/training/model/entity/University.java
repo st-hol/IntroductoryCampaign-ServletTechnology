@@ -3,8 +3,8 @@ package org.training.model.entity;
 public class University {
 
     private long id;
-
     private String nameUniversity;
+
 
     public University() {
     }

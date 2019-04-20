@@ -10,16 +10,7 @@ public class ExamRegistration {
     public ExamRegistration() {
     }
 
-    public ExamRegistration(long idStudent, long idSubject) {
-        this.idStudent = idStudent;
-        this.idSubject = idSubject;
-    }
 
-    public ExamRegistration(long idStudent, long idSubject, double examScore) {
-        this.idStudent = idStudent;
-        this.idSubject = idSubject;
-        this.examScore = examScore;
-    }
 
     public double getExamScore() {
         return examScore;

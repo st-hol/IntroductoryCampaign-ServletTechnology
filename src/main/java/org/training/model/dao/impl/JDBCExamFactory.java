@@ -1,6 +1,8 @@
 package org.training.model.dao.impl;
 
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.model.dao.ExamDao;
 import org.training.model.dao.impl.queries.ExamSQL;
 import org.training.model.dao.mapper.ExamMapper;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class JDBCExamFactory implements ExamDao {
 
     private Connection connection;
+    private static final Logger logger = LogManager.getLogger(JDBCExamFactory.class);
 
 
     public JDBCExamFactory(Connection connection) {
@@ -51,6 +54,7 @@ public class JDBCExamFactory implements ExamDao {
 
             return new ArrayList<>(exams.values());
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
             return null;
             //todo optional
@@ -79,7 +83,14 @@ public class JDBCExamFactory implements ExamDao {
 
 }
 
-//
+
+
+
+
+
+
+//many to many
+
 //    @Override
 //    public List<Exam> findAll() {
 //

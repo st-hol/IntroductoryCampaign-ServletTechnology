@@ -2,7 +2,6 @@ package org.training.model.mail;
 
 public enum MailTemplatePath {
 
-
     ADMISSION_NOTICE("/mailtemplates/AdmissionNotice.txt"),
     REJECTION_NOTICE("/mailtemplates/RejectionNotice.txt");
 

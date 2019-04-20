@@ -8,7 +8,7 @@ public class Exam {
 
     private long id;
 
-    //private double examScore;
+
     private String examName;
 
     private List<Student> students = new ArrayList<>();
@@ -49,15 +49,21 @@ public class Exam {
     }
 
 
-    public void print() {
-        System.out.println("Exam{" +
-                "id=" + id +
-                ", examName='" + examName + '\'' +
-                ", students=" + students +
-                '}');
-        for (Student student : students) {
-            System.out.println(student.toString());
-        }
-    }
 
 }
+
+
+
+
+
+//this trash was used for debugging
+//    public void print() {
+//        System.out.println("Exam{" +
+//                "id=" + id +
+//                ", examName='" + examName + '\'' +
+//                ", students=" + students +
+//                '}');
+//        for (Student student : students) {
+//            System.out.println(student.toString());
+//        }
+//    }

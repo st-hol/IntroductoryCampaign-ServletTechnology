@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+//directory "c"omand starts from cyrillic "c"... refactor it
 
 public class Servlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
@@ -81,13 +82,10 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI();
-        //System.out.println("1" + path);
         path = path.replaceAll(".*/introductory-campaign/" , "");
-        //System.out.println("2" + path);
 
         Command command = commands.getOrDefault(path , (req, resp)->"/welcome.jsp");
         String page = command.execute(request, response);
-        //System.out.println("3"+page);
 
         if (page.contains("redirect")) {
             response.sendRedirect(page.replace("redirect@", ""));
@@ -105,12 +103,6 @@ public class Servlet extends HttpServlet {
 
 
 
-//fixme there was a bug. when putting a mark. server hung
-
-//todo disable autocommit and make double transaction
-//for example for update two tables
-
+//todo disable autocommit and make double transaction / for example for update two tables
 //todo pagination
-
-
 //todo many-to-many

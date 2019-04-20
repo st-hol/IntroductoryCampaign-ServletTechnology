@@ -1,6 +1,8 @@
 package org.training.model.dao.impl;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
@@ -12,6 +14,8 @@ import java.util.Properties;
 public class ConnectionPoolHolder {
 
     private static volatile DataSource dataSource;
+    private static final Logger logger = LogManager.getLogger(ConnectionPoolHolder.class);
+
 
     public static DataSource getDataSource() {
         if (dataSource == null) {
@@ -27,6 +31,7 @@ public class ConnectionPoolHolder {
                         if (inputStream != null) {
                             properties.load(inputStream);
                         } else {
+                            logger.fatal("Unable to open file:" + propFileName );
                             throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
                         }
 
@@ -48,6 +53,7 @@ public class ConnectionPoolHolder {
                         dataSource = ds;
 
                     } catch (IOException | ClassNotFoundException e) {
+                        logger.fatal("Caught exception:", e);
                         e.printStackTrace();
                     }
                 }

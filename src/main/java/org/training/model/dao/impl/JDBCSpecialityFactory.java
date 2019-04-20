@@ -1,5 +1,7 @@
 package org.training.model.dao.impl;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.model.dao.SpecialityDao;
 
 import org.training.model.dao.impl.queries.SpecialitySQL;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class JDBCSpecialityFactory  implements SpecialityDao {
 
     private Connection connection;
+    private static final Logger logger = LogManager.getLogger(JDBCSpecialityFactory.class);
+
 
     public JDBCSpecialityFactory(Connection connection) {
         this.connection = connection;
@@ -46,6 +50,7 @@ public class JDBCSpecialityFactory  implements SpecialityDao {
             }
 
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return result;
@@ -69,6 +74,7 @@ public class JDBCSpecialityFactory  implements SpecialityDao {
 
             return new ArrayList<>(specialities.values());
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
             return null;
             //todo optional

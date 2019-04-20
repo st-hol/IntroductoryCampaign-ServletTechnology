@@ -1,8 +1,9 @@
 package org.training.model.mail;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.MissingResourceException;
 import java.util.Properties;
@@ -11,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class MailProperty {
-    private static final Logger LOGGER = LogManager.getLogger(MailProperty.class);
+    private static final Logger logger = LogManager.getLogger(MailProperty.class);
 
     private static MailProperty instance;
     private static AtomicBoolean instanceCreated = new AtomicBoolean(false);
@@ -53,7 +54,7 @@ public class MailProperty {
         try {
             resourceBundle = ResourceBundle.getBundle(PROPERTY_MAIL);
         } catch (MissingResourceException e) {
-            LOGGER.log(Level.FATAL, "No mail.properties found");
+            logger.fatal("No mail.properties found");
             throw new RuntimeException("No mail.properties found");
         }
 

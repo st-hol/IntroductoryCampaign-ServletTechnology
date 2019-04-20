@@ -19,5 +19,4 @@ public interface StudentDao extends GenericDao<Student> {
 
    JDBCStudentFactory.PaginationResult findByPagination(int offset, int noOfRecords);
 
-   int getNoOfRecords();
 }

@@ -17,10 +17,6 @@ public class ExamService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public ExamDao getDaoFactory() {
-        return daoFactory.createExamDao();
-    }
-
 
     public List<Exam> getAllExams() {
         try (ExamDao dao = daoFactory.createExamDao()) {

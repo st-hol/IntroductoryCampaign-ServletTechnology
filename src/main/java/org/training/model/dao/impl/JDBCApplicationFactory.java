@@ -1,5 +1,7 @@
 package org.training.model.dao.impl;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.model.dao.ApplicationDao;
 import org.training.model.dao.impl.queries.ApplicationSQL;
 import org.training.model.dao.mapper.ApplicationMapper;
@@ -14,6 +16,8 @@ import java.util.*;
 public class JDBCApplicationFactory implements ApplicationDao {
 
     private Connection connection;
+    private static final Logger logger = LogManager.getLogger(JDBCApplicationFactory.class);
+
 
     public JDBCApplicationFactory(Connection connection) {
         this.connection = connection;
@@ -30,7 +34,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            //TODO LOG  //TODO LOG  //TODO LOG  //TODO LOG  //TODO LOG  //TODO LOG
+            logger.fatal("Caught SQLException exception", e);
         }
     }
 
@@ -53,6 +57,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.fatal("Caught SQLException exception", e);
         }
         return result;
     }
@@ -77,6 +82,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.fatal("Caught SQLException exception", e);
             return null;
             //todo optional
         }
@@ -118,6 +124,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
                 result = applicationMapper.extractFromResultSet(rs);
             }
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return result;
@@ -135,6 +142,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
                 return true;
             }
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return false;

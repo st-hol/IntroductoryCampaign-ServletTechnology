@@ -1,5 +1,7 @@
 package org.training.model.dao.impl;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.model.dao.SpecialityDao;
 import org.training.model.dao.UniversityDao;
 import org.training.model.dao.impl.queries.UniversitySQL;
@@ -17,6 +19,8 @@ import java.util.List;
 public class JDBCUniversityFactory implements UniversityDao {
 
     private Connection connection;
+    private static final Logger logger = LogManager.getLogger(JDBCUniversityFactory.class);
+
 
     public JDBCUniversityFactory(Connection connection) {
         this.connection = connection;
@@ -47,6 +51,7 @@ public class JDBCUniversityFactory implements UniversityDao {
             }
 
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return result;

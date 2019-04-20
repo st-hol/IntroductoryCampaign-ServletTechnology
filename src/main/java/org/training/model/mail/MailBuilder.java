@@ -1,8 +1,8 @@
 package org.training.model.mail;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +11,8 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class MailBuilder {
-    private static final Logger LOGGER = LogManager.getLogger(MailBuilder.class);
+
+    private static final Logger logger = LogManager.getLogger(MailBuilder.class);
 
     private String templatePath;
 
@@ -22,7 +23,7 @@ public class MailBuilder {
     public String takeMailTemplate() {
         URL url = this.getClass().getClassLoader().getResource(templatePath);
         if (url == null) {
-            //LOGGER.log(Level.FATAL, "mail template file was not found");
+            logger.fatal( "mail template file was not found");
             throw new RuntimeException("mail template file was not found");
         }
 
@@ -37,7 +38,7 @@ public class MailBuilder {
             }
 
         } catch (FileNotFoundException | URISyntaxException e) {
-            LOGGER.log(Level.FATAL, e);
+            logger.fatal("Exception caught:", e);
             throw new RuntimeException(e);
 
         } finally {

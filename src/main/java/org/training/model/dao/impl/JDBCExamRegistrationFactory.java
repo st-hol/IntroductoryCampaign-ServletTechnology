@@ -1,5 +1,7 @@
 package org.training.model.dao.impl;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.model.dao.ExamRegistrationDao;
 import org.training.model.dao.impl.queries.ExamRegistrationSQL;
 import org.training.model.dao.impl.queries.ExamSQL;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class JDBCExamRegistrationFactory implements ExamRegistrationDao {
 
     private Connection connection;
+    private static final Logger logger = LogManager.getLogger(JDBCExamRegistrationFactory.class);
+
 
     public JDBCExamRegistrationFactory(Connection connection) {
         this.connection = connection;
@@ -33,6 +37,7 @@ public class JDBCExamRegistrationFactory implements ExamRegistrationDao {
             ps.execute();
 
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
     }
@@ -60,6 +65,7 @@ return null;
             //ps.executeUpdate();
 
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
     }
@@ -90,6 +96,7 @@ return null;
                 return true;
             }
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return false;

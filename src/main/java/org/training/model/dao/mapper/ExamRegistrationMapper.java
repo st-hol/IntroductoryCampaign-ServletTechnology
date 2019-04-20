@@ -1,5 +1,8 @@
 package org.training.model.dao.mapper;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.training.model.dao.impl.JDBCUniversityFactory;
 import org.training.model.entity.ExamRegistration;
 
 import java.sql.ResultSet;
@@ -7,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class ExamRegistrationMapper implements ObjectMapper<ExamRegistration> {
+
 
     @Override
     public ExamRegistration extractFromResultSet(ResultSet rs) throws SQLException {
@@ -21,7 +25,6 @@ public class ExamRegistrationMapper implements ObjectMapper<ExamRegistration> {
 
     @Override
     public ExamRegistration makeUnique(Map<Long, ExamRegistration> existing, ExamRegistration entity) {
-        return null;
-        //todo bad
+        throw new UnsupportedOperationException("makeUnique is not supported for this class");
     }
 }

@@ -4,9 +4,7 @@ package org.training.model.entity;
 public class Speciality {
 
     private long id;
-
     private String nameSpeciality;
-    //private String nameUniversity;
     private University university;
 
 

@@ -1,5 +1,7 @@
 package org.training.model.dao.impl;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.training.model.dao.StudentDao;
 import org.training.model.dao.impl.queries.StudentSQL;
 import org.training.model.dao.mapper.StudentMapper;
@@ -12,7 +14,7 @@ import java.util.*;
 public class JDBCStudentFactory implements StudentDao {
 
     private Connection connection;
-    private int noOfRecords;
+    private static final Logger logger = LogManager.getLogger(JDBCStudentFactory.class);
 
     public JDBCStudentFactory(Connection connection) {
         this.connection = connection;
@@ -41,6 +43,7 @@ public class JDBCStudentFactory implements StudentDao {
             ps.execute();
 
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
     }
@@ -62,6 +65,7 @@ public class JDBCStudentFactory implements StudentDao {
                 result = studentMapper.extractFromResultSet(rs);
             }
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return result;
@@ -88,6 +92,7 @@ public class JDBCStudentFactory implements StudentDao {
 //            }
             return new ArrayList<>(users.values());
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
             return null;
             //todo optional
@@ -130,6 +135,7 @@ public class JDBCStudentFactory implements StudentDao {
                 result = Student.ROLE.getRoleById(rs.getInt("id_role"));
             }
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return result;
@@ -157,6 +163,7 @@ public class JDBCStudentFactory implements StudentDao {
                 return true;
             }
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return false;
@@ -176,6 +183,7 @@ public class JDBCStudentFactory implements StudentDao {
                 return true;
             }
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         return false;
@@ -210,6 +218,7 @@ public class JDBCStudentFactory implements StudentDao {
             }
             rs.close();
         } catch (SQLException e) {
+            logger.fatal("Caught SQLException exception", e);
             e.printStackTrace();
         }
         paginationResult.setResultList(new ArrayList<>(users.values()));
@@ -241,9 +250,6 @@ public class JDBCStudentFactory implements StudentDao {
     }
 
 
-    public int getNoOfRecords() {
-        return noOfRecords;
-    }
 }
 
 
