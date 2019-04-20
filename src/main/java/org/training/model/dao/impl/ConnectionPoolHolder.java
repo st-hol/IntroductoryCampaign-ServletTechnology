@@ -17,21 +17,22 @@ public class ConnectionPoolHolder {
         if (dataSource == null) {
             synchronized (ConnectionPoolHolder.class) {
                 if (dataSource == null) {
+                    Properties properties = new Properties();
+                    String propFileName = "db.properties";
 
-                    try {
-                        Properties properties = new Properties();
+                    try(InputStream inputStream = Thread.currentThread()
+                            .getContextClassLoader()
+                            .getResourceAsStream(propFileName)) {
 
-                        properties.load(new FileInputStream(
-                                "E:\\Java\\epam courses\\IntroductoryCampaign\\src\\main\\resources\\db.properties"));
+                        if (inputStream != null) {
+                            properties.load(inputStream);
+                        } else {
+                            throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+                        }
 
+                        //properties.load(new FileInputStream(
+                        //      "E:\\Java\\epam courses\\IntroductoryCampaign\\src\\main\\resources\\db.properties"));
 
-//                        String propFileName = "db.properties";
-//                        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(propFileName);
-//                        if (inputStream != null) {
-//                            properties.load(inputStream);
-//                        } else {
-//                            throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-//                        }
 
                         Class.forName(properties.getProperty("db.connection.driver"));
 
