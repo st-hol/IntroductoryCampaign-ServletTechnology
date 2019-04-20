@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-//directory "c"omand starts from cyrillic "c"... refactor it
 
 public class Servlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
