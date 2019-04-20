@@ -23,7 +23,7 @@ public class Student {
     }
 
 
-    public Student(int id, String email, String password, ROLE role) {
+    public Student(long id, String email, String password, ROLE role) {
         this.id = id;
 
         this.firstName = "Unknown";
@@ -35,7 +35,7 @@ public class Student {
         this.role = role;
     }
 
-    public Student(int id, String firstName, String lastName, int rating, String email, String password, ROLE role) {
+    public Student(long id, String firstName, String lastName, int rating, String email, String password, ROLE role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -124,6 +124,27 @@ public class Student {
                 '}';
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id &&
+                Double.compare(student.rating, rating) == 0 &&
+                Objects.equals(firstName, student.firstName) &&
+                Objects.equals(lastName, student.lastName) &&
+                Objects.equals(exams, student.exams) &&
+                Objects.equals(email, student.email) &&
+                Objects.equals(password, student.password) &&
+                role == student.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, rating, exams, email, password, role);
+    }
+
     public enum ROLE {
         ADMIN, USER, UNKNOWN;
 
@@ -135,6 +156,8 @@ public class Student {
             int index = id - 1;
             return values()[index];
         }
+
+
 
 
     }
