@@ -42,7 +42,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
         ApplicationForAdmission result = new ApplicationForAdmission();
         result.setId(-1);
 
-        try (PreparedStatement ps = connection.prepareStatement(ApplicationSQL.READ_ONE.getQUERY())){
+        try (PreparedStatement ps = connection.prepareStatement(ApplicationSQL.READ_ONE.getQUERY())) {
 
             ps.setLong(1, id);
 
@@ -108,7 +108,7 @@ public class JDBCApplicationFactory implements ApplicationDao {
         ApplicationForAdmission result = new ApplicationForAdmission();
         result.setId(-1);
 
-        try (PreparedStatement ps = connection.prepareStatement("select * from application_for_admission where id_student=(?)")){
+        try (PreparedStatement ps = connection.prepareStatement("select * from application_for_admission where id_student=(?)")) {
 
             ps.setLong(1, id);
 
@@ -121,5 +121,22 @@ public class JDBCApplicationFactory implements ApplicationDao {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public boolean recordAlreadyExist(long idStudent) {
+        try (PreparedStatement ps = connection.prepareStatement(ApplicationSQL.IS_EXIST.getQUERY())) {
+
+            ps.setLong(1, idStudent);
+
+            final ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

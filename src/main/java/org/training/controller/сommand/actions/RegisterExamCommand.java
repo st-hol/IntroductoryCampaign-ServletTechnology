@@ -31,6 +31,8 @@ public class RegisterExamCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        CommandUtility.defineExamsAttribute(request);
+
         final Student currentSessionStudent = studentService.getCurrentSessionStudent(request);
 
         final long currentStudentId = currentSessionStudent.getId();
@@ -45,8 +47,6 @@ public class RegisterExamCommand implements Command {
         } catch (AlreadyExistingDBRecordException e) {
             e.printStackTrace();
             logger.info(e.getMessage());
-
-            CommandUtility.defineExamsAttribute(request);
             return "/WEB-INF/user/regforexam.jsp?alreadyExist=true";
         }
 

@@ -3,8 +3,10 @@ package org.training.controller.сommand.actions;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.training.controller.сommand.Command;
+import org.training.controller.сommand.CommandUtility;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.entity.Student;
+import org.training.model.exception.AlreadyExistingDBRecordException;
 import org.training.model.service.ApplicationService;
 import org.training.model.service.SpecialityService;
 import org.training.model.service.StudentService;
@@ -49,8 +51,19 @@ public class ApplyAdmissionCommand implements Command {
         logger.info("Student " + currentSessionStudent.getFirstName() + " " + currentSessionStudent.getLastName()
                 + "applied for admission.");
 
-        applicationService.applyForAdmission(applicationForAdmission);
-        studentService.notifyStudentByEmail(applicationForAdmission);
+        try {
+            applicationService.applyForAdmission(applicationForAdmission);
+            if (currentSessionStudent.getRating() > 0){
+                studentService.notifyStudentByEmail(applicationForAdmission);
+            }
+        } catch (AlreadyExistingDBRecordException e) {
+            e.printStackTrace();
+            logger.info(e.getMessage());
+
+            CommandUtility.defineSpecialitiesAttribute(request);
+            return "/WEB-INF/user/applyforadmission.jsp?alreadyExist=true";
+        }
+
 
 
         return "/WEB-INF/user/applyforadmission.jsp";

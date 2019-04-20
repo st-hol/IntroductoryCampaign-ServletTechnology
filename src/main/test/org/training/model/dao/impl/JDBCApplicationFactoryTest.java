@@ -3,6 +3,8 @@ package org.training.model.dao.impl;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.training.model.dao.ApplicationDao;
+import org.training.model.dao.DaoFactory;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.service.ApplicationService;
 
@@ -45,5 +47,15 @@ public class JDBCApplicationFactoryTest {
         ApplicationForAdmission application = applicationService.getApplicationById(id_application);
 
         assertEquals(application.getStudent().getId(), id_student);
+    }
+
+    @Test
+    public void recordAlreadyExist() {
+
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        ApplicationDao examRegistrationDao = daoFactory.createApplicationDao();
+        boolean hasAlreadyApplied = examRegistrationDao.recordAlreadyExist(id_student);
+
+        assertTrue(hasAlreadyApplied);
     }
 }

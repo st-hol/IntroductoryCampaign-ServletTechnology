@@ -13,7 +13,9 @@ public enum ApplicationSQL {
 
     DELETE(""),
 
-    UPDATE("");
+    UPDATE(""),
+
+    IS_EXIST("SELECT * FROM application_for_admission where id_student = (?);");
 
 
 

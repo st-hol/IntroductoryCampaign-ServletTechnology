@@ -45,7 +45,9 @@
             <h2 class="form-title wow bounce"><fmt:message key="label.make.admission" /></h2>
             <div class="contee wow flipInY" data-wow-delay="0.5s">
 
-
+                <c:if test="${param.alreadyExist == true}">
+                    <p style="color: orange"><fmt:message key="label.already.applied" /></p>
+                </c:if>
                 <form class="put-marks-form" method="post"
                       action="${pageContext.request.contextPath}/introductory-campaign/apply-for-admission">
 
