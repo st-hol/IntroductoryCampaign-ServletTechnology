@@ -27,6 +27,18 @@ import java.util.List;
  */
 public class CommandUtility {
 
+    private static StudentService studentService;
+    private static  ExamService examService;
+    private static  SpecialityService specialityService;
+
+    static
+    {
+        studentService = new StudentService();
+        examService = new ExamService();
+        specialityService = new SpecialityService();
+    }
+
+
     /**
      * This is the executing certain command method
      * which provides the concrete logic for each
@@ -123,7 +135,6 @@ public class CommandUtility {
      * @param request HttpServletRequest.
      */
     public static void defineStudentsAttribute(HttpServletRequest request) {
-        final StudentService studentService = new StudentService();
         List<Student> students = studentService.getAllUsers();
         request.setAttribute("students", students);
     }
@@ -135,7 +146,6 @@ public class CommandUtility {
      * @param request HttpServletRequest.
      */
     public static void defineExamsAttribute(HttpServletRequest request) {
-        final ExamService examService = new ExamService();
         List<Exam> exams = examService.getAllExams();
         request.setAttribute("exams", exams);
     }
@@ -147,7 +157,6 @@ public class CommandUtility {
      * @param request HttpServletRequest.
      */
     public static void defineSpecialitiesAttribute(HttpServletRequest request) {
-        final SpecialityService specialityService = new SpecialityService();
         List<Speciality> specialities = specialityService.getAllSpecialities();
         request.setAttribute("specialities", specialities);
     }

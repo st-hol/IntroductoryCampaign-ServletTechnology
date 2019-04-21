@@ -21,6 +21,13 @@ import java.util.List;
  */
 public class ShowEnrolledCommand implements Command {
 
+    private StudentService studentService;
+
+
+    public ShowEnrolledCommand(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
     /**
      * Here pagination is provided.
      *
@@ -43,7 +50,6 @@ public class ShowEnrolledCommand implements Command {
         if(request.getParameter("page") != null)
             page = Integer.parseInt(request.getParameter("page"));
 
-        final StudentService studentService = new StudentService();
 
         JDBCStudentDao.PaginationResult paginationResult =
                 studentService.getAllEnrolledStudentsByPagination(

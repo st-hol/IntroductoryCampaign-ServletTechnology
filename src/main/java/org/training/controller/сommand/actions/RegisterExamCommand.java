@@ -27,11 +27,9 @@ public class RegisterExamCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterExamCommand.class);
 
     private ExamRegistrationService examRegistrationService;
-    private StudentService studentService;
 
-    public RegisterExamCommand(ExamRegistrationService examRegistrationService, StudentService studentService) {
+    public RegisterExamCommand(ExamRegistrationService examRegistrationService) {
         this.examRegistrationService = examRegistrationService;
-        this.studentService = studentService;
     }
 
 

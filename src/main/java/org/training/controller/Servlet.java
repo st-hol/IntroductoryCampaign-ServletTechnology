@@ -60,14 +60,14 @@ public class Servlet extends HttpServlet {
 //        commands.put("show-all-exams",
 //                new ShowExamsCommand(new ExamService()));
         commands.put("registrate-for-exam",
-                new RegisterExamCommand(new ExamRegistrationService(), new StudentService()));
+                new RegisterExamCommand(new ExamRegistrationService()));
         commands.put("set-grade",
                 new SetGradeCommand(new ExamRegistrationService()));
 
         commands.put("apply-for-admission",
                 new ApplyAdmissionCommand(new SpecialityService(), new StudentService(), new ApplicationService()));
         commands.put("list-of-enrolled",
-                new ShowEnrolledCommand());
+                new ShowEnrolledCommand(new StudentService()));
 
         commands.put("home",
                 new HomeCommand());
