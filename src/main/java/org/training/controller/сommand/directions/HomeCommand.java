@@ -13,6 +13,13 @@ import java.util.List;
 
 
 
+/**
+ * This class is responsible for forwarding
+ * to home page from user-role or admin-role
+ * personal cabinet.
+ *
+ * @author Stanislav Holovachuk
+ */
 
 public class HomeCommand implements Command {
 

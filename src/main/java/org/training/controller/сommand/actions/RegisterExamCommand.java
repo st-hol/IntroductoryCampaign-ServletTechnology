@@ -15,6 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * This class is responsible for registering
+ * exam from user-role personal cabinet.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class RegisterExamCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(RegisterExamCommand.class);
@@ -33,7 +40,7 @@ public class RegisterExamCommand implements Command {
 
         CommandUtility.defineExamsAttribute(request);
 
-        final Student currentSessionStudent = studentService.getCurrentSessionStudent(request);
+        final Student currentSessionStudent = CommandUtility.getCurrentSessionStudent(request);
 
         final long currentStudentId = currentSessionStudent.getId();
         final long examId = Long.parseLong(request.getParameter("examId"));

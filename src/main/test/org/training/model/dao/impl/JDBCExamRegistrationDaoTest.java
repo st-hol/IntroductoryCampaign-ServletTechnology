@@ -15,7 +15,7 @@ import java.sql.Statement;
 
 import static org.junit.Assert.*;
 
-public class JDBCExamRegistrationFactoryTest {
+public class JDBCExamRegistrationDaoTest {
 
     private static long id_student = 25;
     private static long id_subject = 1;

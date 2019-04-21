@@ -12,7 +12,12 @@ import java.util.Optional;
 
 
 
-
+/**
+ * This class realize logic
+ * for manipulation with db.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class ExamService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();

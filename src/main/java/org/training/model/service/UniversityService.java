@@ -5,6 +5,13 @@ import org.training.model.dao.UniversityDao;
 import org.training.model.entity.University;
 
 
+
+/**
+ * This class realize logic
+ * for manipulation with db.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class UniversityService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();

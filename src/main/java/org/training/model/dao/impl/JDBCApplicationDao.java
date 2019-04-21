@@ -5,21 +5,18 @@ import org.apache.log4j.Logger;
 import org.training.model.dao.ApplicationDao;
 import org.training.model.dao.impl.queries.ApplicationSQL;
 import org.training.model.dao.mapper.ApplicationMapper;
-import org.training.model.dao.mapper.StudentMapper;
 import org.training.model.entity.ApplicationForAdmission;
-import org.training.model.entity.Student;
 
-import javax.xml.registry.infomodel.User;
 import java.sql.*;
 import java.util.*;
 
-public class JDBCApplicationFactory implements ApplicationDao {
+public class JDBCApplicationDao implements ApplicationDao {
 
     private Connection connection;
-    private static final Logger logger = LogManager.getLogger(JDBCApplicationFactory.class);
+    private static final Logger logger = LogManager.getLogger(JDBCApplicationDao.class);
 
 
-    public JDBCApplicationFactory(Connection connection) {
+    public JDBCApplicationDao(Connection connection) {
         this.connection = connection;
     }
 

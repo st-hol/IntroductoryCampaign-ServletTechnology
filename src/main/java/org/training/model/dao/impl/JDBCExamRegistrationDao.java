@@ -4,26 +4,18 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.training.model.dao.ExamRegistrationDao;
 import org.training.model.dao.impl.queries.ExamRegistrationSQL;
-import org.training.model.dao.impl.queries.ExamSQL;
-import org.training.model.dao.mapper.ExamMapper;
-import org.training.model.dao.mapper.StudentMapper;
-import org.training.model.entity.Exam;
 import org.training.model.entity.ExamRegistration;
-import org.training.model.entity.Student;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class JDBCExamRegistrationFactory implements ExamRegistrationDao {
+public class JDBCExamRegistrationDao implements ExamRegistrationDao {
 
     private Connection connection;
-    private static final Logger logger = LogManager.getLogger(JDBCExamRegistrationFactory.class);
+    private static final Logger logger = LogManager.getLogger(JDBCExamRegistrationDao.class);
 
 
-    public JDBCExamRegistrationFactory(Connection connection) {
+    public JDBCExamRegistrationDao(Connection connection) {
         this.connection = connection;
     }
 

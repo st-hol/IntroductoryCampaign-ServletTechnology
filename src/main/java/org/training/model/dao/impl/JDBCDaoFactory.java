@@ -13,33 +13,33 @@ public class JDBCDaoFactory extends DaoFactory {
 
     @Override
     public ExamDao createExamDao() {
-        return new JDBCExamFactory(getConnection());
+        return new JDBCExamDao(getConnection());
     }
 
     @Override
     public StudentDao createStudentDao() {
-        return new JDBCStudentFactory(getConnection());
+        return new JDBCStudentDao(getConnection());
     }
 
     @Override
     public ExamRegistrationDao createExamRegistrationDao() {
-        return new JDBCExamRegistrationFactory(getConnection());
+        return new JDBCExamRegistrationDao(getConnection());
     }
 
     @Override
     public SpecialityDao createSpecialityDao() {
-        return new JDBCSpecialityFactory(getConnection());
+        return new JDBCSpecialityDao(getConnection());
     }
 
     @Override
     public ApplicationDao createApplicationDao() {
-        return new JDBCApplicationFactory(getConnection());
+        return new JDBCApplicationDao(getConnection());
     }
 
 
     @Override
     public UniversityDao createUniversityDao() {
-        return new JDBCUniversityFactory(getConnection());
+        return new JDBCUniversityDao(getConnection());
     }
 
     private Connection getConnection() {

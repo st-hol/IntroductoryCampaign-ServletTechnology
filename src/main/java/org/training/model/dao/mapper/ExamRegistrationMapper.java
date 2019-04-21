@@ -1,8 +1,5 @@
 package org.training.model.dao.mapper;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.training.model.dao.impl.JDBCUniversityFactory;
 import org.training.model.entity.ExamRegistration;
 
 import java.sql.ResultSet;

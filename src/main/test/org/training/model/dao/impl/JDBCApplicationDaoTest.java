@@ -15,7 +15,7 @@ import java.sql.Statement;
 
 import static org.junit.Assert.*;
 
-public class JDBCApplicationFactoryTest {
+public class JDBCApplicationDaoTest {
 
     private static long id_student = 25;
     private static long id_application = 33;

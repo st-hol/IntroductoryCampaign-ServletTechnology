@@ -10,7 +10,12 @@ import java.util.Observable;
 import java.util.stream.Collectors;
 
 
-
+/**
+ * This class realize logic
+ * for manipulation with db.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class ApplicationService // extends Observable
 {
 
@@ -18,7 +23,14 @@ public class ApplicationService // extends Observable
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void applyForAdmission(ApplicationForAdmission applicationForAdmission) throws AlreadyExistingDBRecordException {
+
+    /**
+     * Creates application for admission if such not exist yet.
+     *
+     * @param applicationForAdmission ApplicationForAdmission.
+     */
+    public void applyForAdmission(ApplicationForAdmission applicationForAdmission)
+            throws AlreadyExistingDBRecordException {
 
         try (ApplicationDao applicationDao = daoFactory.createApplicationDao()) {
 
@@ -36,19 +48,35 @@ public class ApplicationService // extends Observable
 //        notifyObservers(applicationForAdmission.getStudent().getId());
     }
 
+
+
+    /**
+     * Obtains application for admission by id application.
+     *
+     * @param id long.
+     */
     public ApplicationForAdmission getApplicationById(long id){
         try (ApplicationDao dao = daoFactory.createApplicationDao()) {
             return dao.findById(id);
         }
     }
 
+
+    /**
+     * Obtains application for admission by id student(unique key).
+     *
+     * @param id long.
+     */
     public ApplicationForAdmission getApplicationByStudentId(long id){
         try (ApplicationDao dao = daoFactory.createApplicationDao()) {
             return dao.findByStudentId(id);
         }
     }
 
-
+    /**
+     * Obtains all applications for admission
+     * where is_enrolled = 1(true)
+     */
     public List<ApplicationForAdmission> getAllConfirmedApplications(){
 
         try (ApplicationDao applicationDao = daoFactory.createApplicationDao()) {

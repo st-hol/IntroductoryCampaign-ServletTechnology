@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
-
 /**
  * Move user to menu.
  * If access 'admin' move to admin menu.
  * If access 'user' move to user menu.
+ *
+ * @author Stanislav Holovachuk
  */
 public class PersonalCabinetCommand implements Command {
 
@@ -29,6 +29,7 @@ public class PersonalCabinetCommand implements Command {
 
         final HttpSession session = request.getSession();
         final Student.ROLE role = (Student.ROLE) session.getAttribute("role");
+
 
 
         if ( session.getAttribute("role") != Student.ROLE.UNKNOWN) {

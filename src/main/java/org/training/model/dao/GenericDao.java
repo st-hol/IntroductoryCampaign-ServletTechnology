@@ -2,6 +2,11 @@ package org.training.model.dao;
 
 import java.util.List;
 
+
+/**
+ * Standard CRUD operations provided.
+ * @author Stanislav Holovachuk
+ */
 public interface GenericDao<T> extends AutoCloseable{
 
     //Create

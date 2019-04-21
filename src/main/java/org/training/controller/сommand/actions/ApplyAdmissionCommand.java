@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class is responsible for applying for admission
+ * from user-role personal cabinet.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class ApplyAdmissionCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(ApplyAdmissionCommand.class);
@@ -35,7 +41,7 @@ public class ApplyAdmissionCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        final Student currentSessionStudent = studentService.getCurrentSessionStudent(request);
+        final Student currentSessionStudent = CommandUtility.getCurrentSessionStudent(request);
 
         final long currentStudentId = currentSessionStudent.getId();
         final long specialityId = Long.parseLong(request.getParameter("idSpeciality"));

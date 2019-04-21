@@ -6,9 +6,7 @@ import org.apache.log4j.Logger;
 import org.training.model.dao.ExamDao;
 import org.training.model.dao.impl.queries.ExamSQL;
 import org.training.model.dao.mapper.ExamMapper;
-import org.training.model.dao.mapper.StudentMapper;
 import org.training.model.entity.Exam;
-import org.training.model.entity.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,13 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JDBCExamFactory implements ExamDao {
+public class JDBCExamDao implements ExamDao {
 
     private Connection connection;
-    private static final Logger logger = LogManager.getLogger(JDBCExamFactory.class);
+    private static final Logger logger = LogManager.getLogger(JDBCExamDao.class);
 
 
-    public JDBCExamFactory(Connection connection) {
+    public JDBCExamDao(Connection connection) {
         this.connection = connection;
     }
 

@@ -3,7 +3,7 @@ package org.training.model.service;
 
 import org.training.model.dao.DaoFactory;
 import org.training.model.dao.StudentDao;
-import org.training.model.dao.impl.JDBCStudentFactory;
+import org.training.model.dao.impl.JDBCStudentDao;
 import org.training.model.entity.ApplicationForAdmission;
 import org.training.model.entity.Student;
 import org.training.model.exception.AlreadyExistingDBRecordException;
@@ -12,27 +12,35 @@ import org.training.model.mail.notificators.StudentNotificator;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+
+/**
+ * This class realize logic
+ * for manipulation with db.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class StudentService {
 
     final private static int IS_ENROLLED = 1;
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public StudentDao getDaoFactory() {
-        return daoFactory.createStudentDao();
-    }
 
+    /**
+     * Registers student's account if such not exist yet.
+     *
+     * @param student Student.
+     */
     public void registerStudentInDB(Student student) throws AlreadyExistingDBRecordException {
         try (StudentDao studentDao = daoFactory.createStudentDao()) {
 
             if ( studentDao.emailAlreadyTaken(student.getEmail()) ){
-                throw new AlreadyExistingDBRecordException("Failed to registrate already existing user email "+
+                throw new AlreadyExistingDBRecordException("Failed registering already existing user email "+
                         student.getEmail());
             }
 
@@ -40,18 +48,13 @@ public class StudentService {
         }
     }
 
-    public Student getCurrentSessionStudent(HttpServletRequest request){
 
-        final HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("email");
-
-        System.out.println( (String) session.getAttribute("email"));
-        System.out.println(  session.getAttribute("email").toString());
-
-        return getStudentByEmail(email);
-    }
-
-    private Student getStudentByEmail(String email) {
+    /**
+     * obtains student by email.
+     *
+     * @param email String.
+     */
+    public Student getStudentByEmail(String email) {
 
         List<Student> students = getAllUsers();
 
@@ -62,13 +65,22 @@ public class StudentService {
 
     }
 
-
+    /**
+     * checks if such user exist in db.
+     * @param email String.
+     */
     public boolean isExistingUser(String email, String password){
         try (StudentDao dao = daoFactory.createStudentDao()) {
             return dao.userIsExist(email, password);
         }
     }
 
+
+    /**
+     * obtain role by email and password.
+     * @param email String.
+     * @param password String.
+     */
     public Student.ROLE getRoleByEmailAndPass(String email, String password){
         try (StudentDao dao = daoFactory.createStudentDao()) {
             return dao.getRoleByEmailPassword(email, password);
@@ -76,35 +88,41 @@ public class StudentService {
     }
 
 
+    /**
+     * obtains student by id.
+     *
+     * @param id long.
+     */
     public Student getStudentById(long id){
         try (StudentDao dao = daoFactory.createStudentDao()) {
             return dao.findById(id);
         }
     }
 
-
+    /**
+     * obtains List of all students.
+     */
     public List<Student> getAllUsers() {
         try (StudentDao dao = daoFactory.createStudentDao()) {
             return dao.findAll();
         }
     }
 
-    public List<Student> getAllEnrolledStudents(List<ApplicationForAdmission> applications) {
 
-        List<Student> students = new ArrayList<>();
-
-        for (ApplicationForAdmission application: applications){
-            students.add(application.getStudent());
-        }
-        return students.stream().sorted(Comparator.comparing(Student::getRating).reversed()).collect(Collectors.toList());
-    }
-
-    public JDBCStudentFactory.PaginationResult getAllEnrolledStudentsByPagination(int offset, int noOfRecords) {
+    /**
+     * obtains List of certain quantity of enrolled students.
+     */
+    public JDBCStudentDao.PaginationResult getAllEnrolledStudentsByPagination(int lowerBound, int upperBound) {
         try (StudentDao dao = daoFactory.createStudentDao()) {
-            return dao.findByPagination(offset, noOfRecords);
+            return dao.findByPagination(lowerBound, upperBound);
         }
     }
 
+
+    /**
+     * sends e-mail notification to student:
+     * rejection or admission notice.
+     */
     public void notifyStudentByEmail(ApplicationForAdmission applicationForAdmission) {
 
         ApplicationService applicationService = new ApplicationService();
@@ -127,6 +145,25 @@ public class StudentService {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+//    public List<Student> getAllEnrolledStudents(List<ApplicationForAdmission> applications) {
+//
+//        List<Student> students = new ArrayList<>();
+//
+//        for (ApplicationForAdmission application: applications){
+//            students.add(application.getStudent());
+//        }
+//        return students.stream().sorted(Comparator.comparing(Student::getRating).reversed()).collect(Collectors.toList());
+//    }
 
 
 

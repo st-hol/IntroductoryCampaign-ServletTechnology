@@ -2,12 +2,9 @@ package org.training.model.dao.impl;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.training.model.dao.SpecialityDao;
 import org.training.model.dao.UniversityDao;
 import org.training.model.dao.impl.queries.UniversitySQL;
-import org.training.model.dao.mapper.SpecialityMapper;
 import org.training.model.dao.mapper.UniversityMapper;
-import org.training.model.entity.Speciality;
 import org.training.model.entity.University;
 
 import java.sql.Connection;
@@ -16,13 +13,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JDBCUniversityFactory implements UniversityDao {
+public class JDBCUniversityDao implements UniversityDao {
 
     private Connection connection;
-    private static final Logger logger = LogManager.getLogger(JDBCUniversityFactory.class);
+    private static final Logger logger = LogManager.getLogger(JDBCUniversityDao.class);
 
 
-    public JDBCUniversityFactory(Connection connection) {
+    public JDBCUniversityDao(Connection connection) {
         this.connection = connection;
     }
 

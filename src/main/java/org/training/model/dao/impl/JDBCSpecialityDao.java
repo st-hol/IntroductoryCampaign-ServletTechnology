@@ -5,11 +5,8 @@ import org.apache.log4j.Logger;
 import org.training.model.dao.SpecialityDao;
 
 import org.training.model.dao.impl.queries.SpecialitySQL;
-import org.training.model.dao.impl.queries.StudentSQL;
 import org.training.model.dao.mapper.SpecialityMapper;
-import org.training.model.dao.mapper.StudentMapper;
 import org.training.model.entity.Speciality;
-import org.training.model.entity.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,13 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JDBCSpecialityFactory  implements SpecialityDao {
+public class JDBCSpecialityDao implements SpecialityDao {
 
     private Connection connection;
-    private static final Logger logger = LogManager.getLogger(JDBCSpecialityFactory.class);
+    private static final Logger logger = LogManager.getLogger(JDBCSpecialityDao.class);
 
 
-    public JDBCSpecialityFactory(Connection connection) {
+    public JDBCSpecialityDao(Connection connection) {
         this.connection = connection;
     }
 

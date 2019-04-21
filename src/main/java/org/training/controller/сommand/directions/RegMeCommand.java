@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class is responsible for forwarding
+ * to registering account page
+ * from home page.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class RegMeCommand implements Command {
 
     @Override

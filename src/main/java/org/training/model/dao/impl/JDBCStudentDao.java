@@ -11,12 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.sql.*;
 import java.util.*;
 
-public class JDBCStudentFactory implements StudentDao {
+public class JDBCStudentDao implements StudentDao {
 
     private Connection connection;
-    private static final Logger logger = LogManager.getLogger(JDBCStudentFactory.class);
+    private static final Logger logger = LogManager.getLogger(JDBCStudentDao.class);
 
-    public JDBCStudentFactory(Connection connection) {
+    public JDBCStudentDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -31,7 +31,6 @@ public class JDBCStudentFactory implements StudentDao {
 
         try (PreparedStatement ps = connection.prepareStatement(StudentSQL.INSERT.getQUERY())) {
 
-            //fixme can be null
             ps.setString(1, student.getFirstName());
             ps.setString(2, student.getLastName());
             ps.setDouble(3, student.getRating());
@@ -48,6 +47,11 @@ public class JDBCStudentFactory implements StudentDao {
         }
     }
 
+    /**
+     * finds Student in database.
+     *
+     * @param id student id.
+     */
     @Override
     public Student findById(long id) {
         StudentMapper studentMapper = new StudentMapper();
@@ -71,7 +75,10 @@ public class JDBCStudentFactory implements StudentDao {
         return result;
     }
 
-
+    /**
+     * obtains all Students from database.
+     *
+     */
     @Override
     public List<Student> findAll() {
         Map<Long, Student> users = new HashMap<>();
@@ -120,6 +127,13 @@ public class JDBCStudentFactory implements StudentDao {
     }
 
 
+    /**
+     * Uses for obtaining user's role.
+     *
+     * @param email String
+     * @param  password String
+     * @return Student.ROLE
+     */
     @Override
     public Student.ROLE getRoleByEmailPassword(final String email, final String password) {
         Student.ROLE result = Student.ROLE.UNKNOWN;
@@ -139,16 +153,15 @@ public class JDBCStudentFactory implements StudentDao {
             e.printStackTrace();
         }
         return result;
-//        List<Student> students = findAll();
-//
-//        for (Student student : students) {
-//            if (student.getEmail().equals(email) && student.getPassword().equals(password)) {
-//                result = student.getRole();
-//            }
-//        }
-//        return result;
     }
 
+    /**
+     * searches Student in database by email and password
+     *
+     * @param email String
+     * @param password String
+     * @return boolean
+     */
     @Override
     public boolean userIsExist(final String email, final String password) {
 
@@ -170,6 +183,12 @@ public class JDBCStudentFactory implements StudentDao {
     }
 
 
+    /**
+     * checks if email in database is already taken
+     *
+     * @param email String
+     * @return boolean
+     */
     @Override
     public boolean emailAlreadyTaken(final String email) {
 
@@ -190,8 +209,18 @@ public class JDBCStudentFactory implements StudentDao {
     }
 
 
+    /**
+     * SQL query obtains all Students limited by lower and upper bounds ordered by descent according to rating
+     * and quantity of all records got from database.
+     *
+     * @param lowerBound integer value.
+     * @param upperBound integer value.
+     * @return object of user-defined class PaginationResult. Which contains of two fields:
+     * 1)the List of obtained Students.
+     * 2)number of records was read.
+     */
     @Override
-    public PaginationResult findByPagination(int offset, int noOfRecords) {
+    public PaginationResult findByPagination(int lowerBound, int upperBound) {
 
         PaginationResult paginationResult = new PaginationResult();
 
@@ -199,7 +228,7 @@ public class JDBCStudentFactory implements StudentDao {
                 "left join students as st on app.id_student = st.id_student " +
                 "where app.is_enrolled = 1 order by st.rating DESC " +
                 "limit  "
-                + offset + ", " + noOfRecords;
+                + lowerBound + ", " + upperBound;
 
         Map<Long, Student> users = new HashMap<>();
         StudentMapper studentMapper = new StudentMapper();
@@ -226,7 +255,7 @@ public class JDBCStudentFactory implements StudentDao {
     }
 
     /**
-     * just a container for returning result.
+     * It is user-defined class just for returning result from findByPagination() method.
      */
     public class PaginationResult {
         private int noOfRecords;

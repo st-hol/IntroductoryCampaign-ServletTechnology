@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Processes logging in.
+ * @author Stanislav Holovachuk
+ */
 public class LoginCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -39,7 +43,7 @@ public class LoginCommand implements Command {
         if (studentService.isExistingUser(email, password)) {
 
             //in order to prevent being logged into one account at the same time
-            if (CommandUtility.checkUserIsLogged(request, email, password)) {
+            if (CommandUtility.checkUserIsLogged(request, email)) {
                 String path = request.getServletContext().getContextPath();
                 return "redirect@" + path + "/jsp/error/multilogin.jsp";
             }

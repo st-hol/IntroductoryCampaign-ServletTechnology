@@ -13,6 +13,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * This class is responsible for forwarding
+ * to registering the exam page
+ * from user-role personal cabinet.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class RegExamCommand implements Command {
 
     @Override

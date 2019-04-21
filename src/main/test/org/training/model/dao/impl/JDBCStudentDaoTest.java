@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class JDBCStudentFactoryTest {
+public class JDBCStudentDaoTest {
     private static long id_student = 25;
     private static String first_name = "'test'";
     private static String last_name =  "'test'";

@@ -19,6 +19,26 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <h1>Final project</h1>
+ *
+ * <p>
+ *     This program implements the task
+ *     which was given as final project
+ *     at java external classes.
+ *
+ *     <i>The main purpose of this task
+ *     is demonstration Java skills
+ *     received after three months of training.</i>
+ * </p>
+ *
+ * <strong>Variant №6)Introductory Campaign </strong>
+ *
+ * @author  Stanislav Holovachuk
+ * @version 1.0
+ * @since   2019-21-04
+ */
+
 
 
 public class Servlet extends HttpServlet {
@@ -76,6 +96,16 @@ public class Servlet extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * This is the working method.
+     * It obtains the path from Command->execute() method
+     * If path contains "redirect@" it truncates it at send redirect
+     * else it makes forward.
+     *
+     * @param request
+     * @param response
+     * @return Nothing.
+     */
     private void processRequest(HttpServletRequest request,
                                 HttpServletResponse response)
             throws ServletException, IOException {

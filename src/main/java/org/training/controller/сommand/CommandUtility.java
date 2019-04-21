@@ -18,9 +18,25 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
+
+/**
+ * This class realize some utility logic
+ * for manipulation with commands.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class CommandUtility {
 
-    public static boolean checkUserIsLogged(HttpServletRequest request, String email, String password){
+    /**
+     * This is the executing certain command method
+     * which provides the concrete logic for each
+     * class that implements it.
+     *
+     * @param request HttpServletRequest.
+     * @param email String.
+     *
+     */
+    public static boolean checkUserIsLogged(HttpServletRequest request, String email){
 
         @SuppressWarnings("unchecked")
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession()
@@ -58,6 +74,29 @@ public class CommandUtility {
     }
 
 
+    /**
+     * Obtain student from current session.
+     *
+     * @param request HttpServletRequest.
+     */
+    public static Student getCurrentSessionStudent(HttpServletRequest request){
+
+        final HttpSession session = request.getSession();
+        String email = session.getAttribute("email").toString();
+
+        StudentService studentService = new StudentService();
+        return studentService.getStudentByEmail(email);
+    }
+
+
+    /**
+     * This method is invoked in commands which need to disallow using cache.
+     * It solves the issue when user could logged out and than return
+     * to its personal cabinet by clicking "back" button in browser.
+     *
+     * @param request HttpServletRequest.
+     * @param response HttpServletResponse.
+     */
     //to prevent user coming back to cached pages after logout
     public static void disallowBackToCached(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -78,32 +117,53 @@ public class CommandUtility {
     }
 
 
+    /**
+     * Uses to set attribute on certain command.
+     *
+     * @param request HttpServletRequest.
+     */
     public static void defineStudentsAttribute(HttpServletRequest request) {
         final StudentService studentService = new StudentService();
         List<Student> students = studentService.getAllUsers();
         request.setAttribute("students", students);
     }
 
+
+    /**
+     * Uses to set attribute on certain command.
+     *
+     * @param request HttpServletRequest.
+     */
     public static void defineExamsAttribute(HttpServletRequest request) {
         final ExamService examService = new ExamService();
         List<Exam> exams = examService.getAllExams();
         request.setAttribute("exams", exams);
     }
 
+
+    /**
+     * Uses to set attribute on certain command.
+     *
+     * @param request HttpServletRequest.
+     */
     public static void defineSpecialitiesAttribute(HttpServletRequest request) {
         final SpecialityService specialityService = new SpecialityService();
         List<Speciality> specialities = specialityService.getAllSpecialities();
         request.setAttribute("specialities", specialities);
     }
 
-    public static void defineEnrolled(HttpServletRequest request){
-        final ApplicationService applicationService = new ApplicationService();
-        final StudentService studentService = new StudentService();
-        List<ApplicationForAdmission> applications = applicationService.getAllConfirmedApplications();
-        List<Student> enrolledStudents = studentService.getAllEnrolledStudents(applications);
-        request.setAttribute("enrolledStudents", enrolledStudents );
-    }
-
-
-
 }
+
+
+
+
+
+
+
+//    public static void defineEnrolled(HttpServletRequest request){
+//        final ApplicationService applicationService = new ApplicationService();
+//        final StudentService studentService = new StudentService();
+//        List<ApplicationForAdmission> applications = applicationService.getAllConfirmedApplications();
+//        List<Student> enrolledStudents = studentService.getAllEnrolledStudents(applications);
+//        request.setAttribute("enrolledStudents", enrolledStudents );
+//    }

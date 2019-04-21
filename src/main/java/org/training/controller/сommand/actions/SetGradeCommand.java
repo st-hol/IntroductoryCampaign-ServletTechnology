@@ -18,6 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * This class is responsible for rating
+ * students for concrete exam
+ * from admin-role personal cabinet.
+ *
+ * @author Stanislav Holovachuk
+ */
 public class SetGradeCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SetGradeCommand.class);
 
