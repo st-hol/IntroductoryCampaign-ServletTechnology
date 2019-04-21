@@ -1098,6 +1098,12 @@ footer {
 
 @media screen and (max-width: 875px) {
 
+
+    .logo-div p {
+        margin-top: 0;
+    }
+
+    
     .container-img-logo {
         top: 300px;
     }
