@@ -8,7 +8,7 @@ This README.md has the next structure:
   
   c) Instructions for launching the application.
   
-
+____________________________________________________________________________________________________________________
 
   a) Description of the project:
   
