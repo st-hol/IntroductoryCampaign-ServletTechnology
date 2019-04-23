@@ -38,16 +38,14 @@ public class SetGradeCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        CommandUtility.defineStudentsAttribute(request);
+        CommandUtility.defineExamsAttribute(request);
 
         final String idStudent = request.getParameter("idStudent");
         final String idSubject = request.getParameter("idSubject");
         final String examScore = request.getParameter("examScore");
 
-
-        if (!(NumberValidator.validateExamScore(examScore))) {
-            CommandUtility.defineStudentsAttribute(request);
-            CommandUtility.defineExamsAttribute(request);
-
+        if ( ! (NumberValidator.validateExamScore(examScore))) {
             return "/WEB-INF/admin/putmarks.jsp?dataInvalid=true";
         }
 

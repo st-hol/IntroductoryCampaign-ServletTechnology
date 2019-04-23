@@ -43,6 +43,17 @@ public class LogoutCommand implements Command {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 //        final HttpSession session = request.getSession();
 //        session.removeAttribute("password");
 //        session.removeAttribute("login");

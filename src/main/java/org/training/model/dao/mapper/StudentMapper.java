@@ -18,7 +18,6 @@ public class StudentMapper implements ObjectMapper<Student>{
 
         student.setId(rs.getInt("id_student"));
 
-        //todo smth
         student.setFirstName(rs.getString("first_name"));
         student.setLastName(rs.getString("last_name"));
         student.setRating(rs.getDouble("rating"));

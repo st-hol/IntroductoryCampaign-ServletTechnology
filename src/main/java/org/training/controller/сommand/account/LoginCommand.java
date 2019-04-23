@@ -73,16 +73,6 @@ public class LoginCommand implements Command {
 
 
 
-
-    //mb unlog user
-    //todo validate
-    //400
-
-    //todo adduserlogged
-
-
-
-            //todo mb get role and directions to
 //    final HttpSession session = request.getSession();
 //        //Logged user.
 //        if (nonNull(session) &&
@@ -104,7 +94,6 @@ public class LoginCommand implements Command {
      * If access 'user' move to user menu.
      */
 
-//    //todo REDIRECT
 //    private String moveToMenu( HttpServletRequest request, final Student.ROLE role) {
 //
 //        if (role.equals(Student.ROLE.ADMIN)) {
